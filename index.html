@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaúdeAqui - Receitas e Dietas Inteligentes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --secondary: #1976D2;
+            --accent: #FF5722;
+            --light: #F5F5F5;
+            --dark: #333;
+            --success: #388E3C;
+            --warning: #F57C00;
+            --info: #0288D1;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --hover-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Tela de Login */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 20px;
+        }
+        
+        .auth-form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .auth-logo {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .btn-info {
+            background: var(--info);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        /* Header */
+        .app-header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        /* Navegação */
+        .app-nav {
+            background: white;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+        }
+        
+        .nav-tab {
+            padding: 12px 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            border-radius: 25px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .nav-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Cards */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        /* Chat */
+        .chat-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: #fafafa;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 80%;
+        }
+        
+        .user-message {
+            background: var(--primary);
+            color: white;
+            margin-left: auto;
+        }
+        
+        .ai-message {
+            background: white;
+            color: var(--dark);
+            border: 1px solid #ddd;
+        }
+
+        .ai-thinking {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-style: italic;
+            padding: 10px;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #666;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Receita Médica */
+        .prescription-container {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .prescription-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px;
+            font-weight: 900;
+            color: rgba(46, 125, 50, 0.05);
+            pointer-events: none;
+        }
+        
+        .prescription-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .prescription-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .prescription-patient {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .prescription-medications {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .medication-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--success);
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .prescription-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .doctor-signature {
+            text-align: center;
+        }
+        
+        .signature-line {
+            width: 200px;
+            border-top: 1px solid var(--dark);
+            margin: 10px 0;
+            padding-top: 5px;
+        }
+
+        /* Dieta */
+        .diet-plan {
+            background: white;
+            border: 2px solid var(--info);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 15px 0;
+        }
+
+        .meal-time {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .meal-title {
+            font-weight: bold;
+            color: var(--info);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .food-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid var(--info);
+        }
+
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .prescription-footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .export-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Autenticação -->
+    <div id="authScreen" class="auth-container">
+        <div class="auth-form">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-heartbeat"></i>
+                    SaúdeAqui
+                </div>
+                <div style="color: #666;">Receitas e Dietas Inteligentes</div>
+            </div>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" id="loginTab">Entrar</div>
+                <div class="auth-tab" id="registerTab">Cadastrar</div>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">E-mail</label>
+                    <input type="email" id="loginEmail" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input type="password" id="loginPassword" placeholder="Sua senha" required>
+                </div>
+                <button type="submit">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar
+                </button>
+            </form>
+            
+            <form id="registerForm" class="hidden">
+                <div class="form-group">
+                    <label for="registerName">Nome Completo</label>
+                    <input type="text" id="registerName" placeholder="Seu nome completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">E-mail</label>
+                    <input type="email" id="registerEmail" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Senha</label>
+                    <input type="password" id="registerPassword" placeholder="Crie uma senha" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirmar Senha</label>
+                    <input type="password" id="registerConfirmPassword" placeholder="Confirme sua senha" required>
+                </div>
+                <button type="submit">
+                    <i class="fas fa-user-plus"></i>
+                    Criar Conta
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Tela Principal -->
+    <div id="mainApp" class="hidden">
+        <header class="app-header">
+            <div class="container header-content">
+                <div class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    SaúdeAqui
+                </div>
+                <div class="user-menu">
+                    <span id="userName">Usuário</span>
+                    <button id="logoutBtn" class="btn-outline">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sair
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <nav class="app-nav">
+            <div class="container">
+                <div class="nav-tabs">
+                    <div class="nav-tab active" data-tab="dashboard">Dashboard</div>
+                    <div class="nav-tab" data-tab="prescriptions">Receitas Médicas</div>
+                    <div class="nav-tab" data-tab="diet">Dietas e Nutrição</div>
+                    <div class="nav-tab" data-tab="health">Saúde</div>
+                </div>
+            </div>
+        </nav>
+        
+        <main class="container">
+            <!-- Dashboard -->
+            <div id="dashboardTab" class="tab-content">
+                <div class="dashboard">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Gerar Receita Médica</div>
+                            <i class="fas fa-file-medical" style="color: var(--primary);"></i>
+                        </div>
+                        <p>Crie receitas médicas profissionais para qualquer paciente</p>
+                        <button class="btn-success" style="margin-top: 15px;" onclick="openPrescriptionModal()">
+                            <i class="fas fa-plus"></i>
+                            Nova Receita
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Plano Alimentar</div>
+                            <i class="fas fa-utensils" style="color: var(--primary);"></i>
+                        </div>
+                        <p>Crie dietas personalizadas com IA</p>
+                        <button class="btn-info" style="margin-top: 15px;" onclick="openDietModal()">
+                            <i class="fas fa-utensils"></i>
+                            Nova Dieta
+                        </button>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Minhas Receitas</div>
+                            <i class="fas fa-file-prescription" style="color: var(--primary);"></i>
+                        </div>
+                        <div id="prescriptionList">
+                            <p>Suas receitas salvas aparecerão aqui</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-container">
+                    <div class="card-header">
+                        <div class="card-title">Assistente de Saúde IA</div>
+                        <i class="fas fa-robot" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai-message">
+                            <strong>Assistente IA:</strong> Olá! Sou seu assistente de saúde inteligente. Posso ajudar você a:
+                            <br>• Criar receitas médicas profissionais
+                            <br>• Elaborar planos alimentares personalizados
+                            <br>• Dar orientações sobre dieta e nutrição
+                            <br>• Responder perguntas sobre saúde
+                            <br><br>Como posso ajudá-lo hoje?
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="Pergunte sobre receitas, dietas, nutrição...">
+                        <button id="sendMessage">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Receitas Médicas -->
+            <div id="prescriptionsTab" class="tab-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Receitas Médicas</div>
+                        <button class="btn-success" onclick="openPrescriptionModal()">
+                            <i class="fas fa-plus"></i>
+                            Nova Receita
+                        </button>
+                    </div>
+                    <div id="savedPrescriptions">
+                        <!-- Receitas salvas aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dietas -->
+            <div id="dietTab" class="tab-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Planos Alimentares e Dietas</div>
+                        <button class="btn-info" onclick="openDietModal()">
+                            <i class="fas fa-utensils"></i>
+                            Nova Dieta
+                        </button>
+                    </div>
+                    <div id="savedDiets">
+                        <!-- Dietas salvas aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Saúde -->
+            <div id="healthTab" class="tab-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Meus Dados de Saúde</div>
+                    </div>
+                    <p>Em desenvolvimento...</p>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>SaúdeAqui &copy; 2024 - Sistema Inteligente de Receitas e Dietas</p>
+        </footer>
+    </div>
+
+    <!-- Modal de Receita -->
+    <div id="prescriptionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-file-medical"></i> Nova Receita Médica
+                </div>
+                <button class="close-modal" onclick="closePrescriptionModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="patientName">Nome do Paciente</label>
+                <input type="text" id="patientName" placeholder="Nome completo do paciente">
+            </div>
+            
+            <div class="form-group">
+                <label for="patientAge">Idade</label>
+                <input type="number" id="patientAge" placeholder="Idade do paciente">
+            </div>
+            
+            <div class="form-group">
+                <label for="patientCondition">Condição/Diagnóstico</label>
+                <input type="text" id="patientCondition" placeholder="Ex: Hipertensão, Diabetes, etc.">
+            </div>
+            
+            <div class="form-group">
+                <label for="medications">Medicamentos Prescritos</label>
+                <textarea id="medications" rows="4" placeholder="Liste os medicamentos, dosagens e posologias..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="prescriptionInstructions">Instruções Gerais</label>
+                <textarea id="prescriptionInstructions" rows="3" placeholder="Instruções adicionais..."></textarea>
+            </div>
+            
+            <button onclick="generatePrescription()" class="btn-success">
+                <i class="fas fa-magic"></i>
+                Gerar Receita com IA
+            </button>
+            
+            <div id="prescriptionResult" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Dieta -->
+    <div id="dietModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-utensils"></i> Plano Alimentar Personalizado
+                </div>
+                <button class="close-modal" onclick="closeDietModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="dietPatientName">Nome do Paciente</label>
+                <input type="text" id="dietPatientName" placeholder="Nome do paciente">
+            </div>
+            
+            <div class="form-group">
+                <label for="dietPatientAge">Idade</label>
+                <input type="number" id="dietPatientAge" placeholder="Idade">
+            </div>
+            
+            <div class="form-group">
+                <label for="patientWeight">Peso (kg)</label>
+                <input type="number" id="patientWeight" placeholder="Peso em kg">
+            </div>
+            
+            <div class="form-group">
+                <label for="patientHeight">Altura (cm)</label>
+                <input type="number" id="patientHeight" placeholder="Altura em cm">
+            </div>
+            
+            <div class="form-group">
+                <label for="healthGoals">Objetivos de Saúde</label>
+                <select id="healthGoals">
+                    <option value="weight_loss">Perda de Peso</option>
+                    <option value="weight_gain">Ganho de Peso</option>
+                    <option value="maintenance">Manutenção</option>
+                    <option value="muscle_gain">Ganho de Massa Muscular</option>
+                    <option value="health_improvement">Melhora da Saúde</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="foodRestrictions">Restrições Alimentares</label>
+                <textarea id="foodRestrictions" rows="3" placeholder="Alergias, intolerâncias, preferências..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="typicalMeals">Refeições que costuma fazer</label>
+                <textarea id="typicalMeals" rows="3" placeholder="Descreva o que costuma comer no dia a dia..."></textarea>
+            </div>
+            
+            <button onclick="generateDietPlan()" class="btn-info">
+                <i class="fas fa-utensils"></i>
+                Gerar Plano Alimentar com IA
+            </button>
+            
+            <div id="dietResult" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuração da API Gemini
+        const GEMINI_API_KEY = 'AIzaSyB_1OWiT3DpvzPQxy7O8qe0bPR4KLvmftw'; // Substitua pela sua chave
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+
+        // Sistema de IA
+        const HealthAssistant = {
+            async callGeminiAPI(prompt) {
+                if (!GEMINI_API_KEY || GEMINI_API_KEY === 'SUA_CHAVE_API_AQUI') {
+                    // Fallback local se não tiver API key
+                    return this.getLocalResponse(prompt);
+                }
+
+                try {
+                    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: prompt
+                                }]
+                            }]
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Erro na API');
+                    }
+
+                    const data = await response.json();
+                    return data.candidates[0].content.parts[0].text;
+                } catch (error) {
+                    console.error('Erro ao chamar API:', error);
+                    return this.getLocalResponse(prompt);
+                }
+            },
+
+            getLocalResponse(prompt) {
+                // Respostas locais para quando não há API
+                const lowerPrompt = prompt.toLowerCase();
+                
+                if (lowerPrompt.includes('receita') || lowerPrompt.includes('prescrição')) {
+                    return `Receita Médica Gerada Localmente:
+
+PACIENTE: [Nome do Paciente]
+DIAGNÓSTICO: [Condição do Paciente]
+
+MEDICAMENTOS PRESCRITOS:
+1. [Medicamento] - [Dosagem] - [Posologia]
+2. [Medicamento] - [Dosagem] - [Posologia]
+
+INSTRUÇÕES:
+• Seguir rigorosamente a posologia
+• Retornar para reavaliação em 30 dias
+• Em caso de efeitos adversos, suspender e contactar médico
+
+ASSINATURA: Dr. Assistente IA - CRM: IA-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+                }
+                
+                if (lowerPrompt.includes('dieta') || lowerPrompt.includes('alimentação')) {
+                    return `Plano Alimentar Personalizado:
+
+CAFÉ DA MANHÃ:
+• 2 fatias de pão integral
+• 1 ovo cozido
+• 1 xícara de chá verde
+• 1 fruta (maçã/banana)
+
+ALMOÇO:
+• Salada verde à vontade
+• 1 concha de feijão
+• 3 colheres de arroz integral
+• 1 filé de frango grelhado
+
+JANTAR:
+• Sopa de legumes
+• 1 porção de proteína magra
+• Legumes cozidos
+
+LANCHES:
+• Frutas
+• Iogurte natural
+• Castanhas
+
+RECOMENDAÇÕES:
+• Beber 2L de água por dia
+• Evitar alimentos processados
+• Fracionar as refeições`;
+                }
+
+                return 'Como assistente de saúde IA, posso ajudar com receitas médicas e planos alimentares. Use os botões no sistema para gerar conteúdo personalizado.';
+            },
+
+            async generatePrescription(patientData) {
+                const prompt = `Como médico, gere uma receita médica formal em português para:
+Paciente: ${patientData.name}
+Idade: ${patientData.age} anos
+Condição: ${patientData.condition}
+Medicamentos: ${patientData.medications}
+Instruções: ${patientData.instructions}
+
+Formate como uma receita médica profissional válida com cabeçalho, dados do paciente, medicamentos com dosagem e posologia, instruções e assinatura médica.`;
+
+                return await this.callGeminiAPI(prompt);
+            },
+
+            async generateDietPlan(patientData) {
+                const prompt = `Como nutricionista, crie um plano alimentar personalizado em português para:
+Paciente: ${patientData.name}
+Idade: ${patientData.age} anos
+Peso: ${patientData.weight} kg
+Altura: ${patientData.height} cm
+Objetivo: ${patientData.goal}
+Restrições: ${patientData.restrictions}
+Hábitos alimentares: ${patientData.habits}
+
+Forneça um plano completo com café da manhã, almoço, jantar e lanches, incluindo porções e recomendações nutricionais.`;
+
+                return await this.callGeminiAPI(prompt);
+            }
+        };
+
+        // Sistema Principal
+        const App = {
+            currentUser: null,
+            
+            init() {
+                this.checkAuth();
+                this.setupEventListeners();
+            },
+
+            checkAuth() {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    this.currentUser = JSON.parse(savedUser);
+                    this.showMainApp();
+                }
+            },
+
+            showMainApp() {
+                document.getElementById('authScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                this.updateUserInterface();
+                this.loadPrescriptions();
+                this.loadDiets();
+            },
+
+            updateUserInterface() {
+                if (this.currentUser) {
+                    document.getElementById('userName').textContent = this.currentUser.name;
+                }
+            },
+
+            setupEventListeners() {
+                // Autenticação
+                document.getElementById('loginTab').addEventListener('click', () => this.switchAuthTab('login'));
+                document.getElementById('registerTab').addEventListener('click', () => this.switchAuthTab('register'));
+                document.getElementById('loginForm').addEventListener('submit', (e) => this.handleLogin(e));
+                document.getElementById('registerForm').addEventListener('submit', (e) => this.handleRegister(e));
+                document.getElementById('logoutBtn').addEventListener('click', () => this.handleLogout());
+
+                // Navegação
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.addEventListener('click', (e) => this.switchTab(e.currentTarget.dataset.tab));
+                });
+
+                // Chat
+                document.getElementById('sendMessage').addEventListener('click', () => this.sendChatMessage());
+                document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.sendChatMessage();
+                });
+            },
+
+            switchAuthTab(tab) {
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+
+                if (tab === 'login') {
+                    document.getElementById('loginTab').classList.add('active');
+                    document.getElementById('loginForm').classList.remove('hidden');
+                } else {
+                    document.getElementById('registerTab').classList.add('active');
+                    document.getElementById('registerForm').classList.remove('hidden');
+                }
+            },
+
+            handleLogin(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.email === email && u.password === password);
+
+                if (user) {
+                    this.currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.showMainApp();
+                    this.showMessage('Login realizado com sucesso!');
+                } else {
+                    this.showMessage('E-mail ou senha incorretos!', 'error');
+                }
+            },
+
+            handleRegister(e) {
+                e.preventDefault();
+                const name = document.getElementById('registerName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+                if (password !== confirmPassword) {
+                    this.showMessage('As senhas não coincidem!', 'error');
+                    return;
+                }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                if (users.find(u => u.email === email)) {
+                    this.showMessage('Este e-mail já está cadastrado!', 'error');
+                    return;
+                }
+
+                const newUser = {
+                    id: Date.now().toString(),
+                    name: name,
+                    email: email,
+                    password: password,
+                    createdAt: new Date().toISOString()
+                };
+
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                this.showMessage('Cadastro realizado com sucesso!');
+                this.switchAuthTab('login');
+            },
+
+            handleLogout() {
+                this.currentUser = null;
+                localStorage.removeItem('currentUser');
+                document.getElementById('authScreen').classList.remove('hidden');
+                document.getElementById('mainApp').classList.add('hidden');
+            },
+
+            switchTab(tabName) {
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.getElementById(`${tabName}Tab`).classList.remove('hidden');
+
+                if (tabName === 'prescriptions') {
+                    this.loadPrescriptions();
+                } else if (tabName === 'diet') {
+                    this.loadDiets();
+                }
+            },
+
+            async sendChatMessage() {
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                
+                if (!message) return;
+
+                this.addChatMessage(message, 'user');
+                input.value = '';
+
+                this.showTypingIndicator();
+
+                try {
+                    const response = await HealthAssistant.callGeminiAPI(message);
+                    this.removeTypingIndicator();
+                    this.addChatMessage(response, 'ai');
+                } catch (error) {
+                    this.removeTypingIndicator();
+                    this.addChatMessage('Desculpe, ocorreu um erro. Tente novamente.', 'ai');
+                }
+            },
+
+            addChatMessage(message, sender) {
+                const messagesContainer = document.getElementById('chatMessages');
+                const messageElement = document.createElement('div');
+                messageElement.className = `message ${sender}-message`;
+                
+                if (sender === 'ai') {
+                    messageElement.innerHTML = `<strong>Assistente IA:</strong> ${message.replace(/\n/g, '<br>')}`;
+                } else {
+                    messageElement.innerHTML = `<strong>Você:</strong> ${message}`;
+                }
+
+                messagesContainer.appendChild(messageElement);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            },
+
+            showTypingIndicator() {
+                const messagesContainer = document.getElementById('chatMessages');
+                const typingElement = document.createElement('div');
+                typingElement.className = 'ai-thinking';
+                typingElement.id = 'typingIndicator';
+                typingElement.innerHTML = `
+                    <strong>Assistente IA:</strong>
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                `;
+                messagesContainer.appendChild(typingElement);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            },
+
+            removeTypingIndicator() {
+                const typingIndicator = document.getElementById('typingIndicator');
+                if (typingIndicator) {
+                    typingIndicator.remove();
+                }
+            },
+
+            loadPrescriptions() {
+                const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${this.currentUser?.id}`) || '[]');
+                const container = document.getElementById('savedPrescriptions') || document.getElementById('prescriptionList');
+
+                if (prescriptions.length === 0) {
+                    container.innerHTML = '<p>Nenhuma receita salva ainda.</p>';
+                    return;
+                }
+
+                container.innerHTML = prescriptions.map(prescription => `
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-header">
+                            <div class="card-title">Receita para ${prescription.patientName}</div>
+                            <small>${new Date(prescription.date).toLocaleDateString('pt-BR')}</small>
+                        </div>
+                        <p><strong>Condição:</strong> ${prescription.condition}</p>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button onclick="viewPrescription('${prescription.id}')" class="btn-outline btn-small">
+                                <i class="fas fa-eye"></i> Ver
+                            </button>
+                            <button onclick="exportToPDF('${prescription.id}')" class="btn-small" style="background: var(--accent);">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                            <button onclick="exportToPNG('${prescription.id}')" class="btn-small" style="background: var(--info);">
+                                <i class="fas fa-image"></i> PNG
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            loadDiets() {
+                const diets = JSON.parse(localStorage.getItem(`diets_${this.currentUser?.id}`) || '[]');
+                const container = document.getElementById('savedDiets');
+
+                if (diets.length === 0) {
+                    container.innerHTML = '<p>Nenhuma dieta salva ainda.</p>';
+                    return;
+                }
+
+                container.innerHTML = diets.map(diet => `
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-header">
+                            <div class="card-title">Dieta para ${diet.patientName}</div>
+                            <small>${new Date(diet.date).toLocaleDateString('pt-BR')}</small>
+                        </div>
+                        <p><strong>Objetivo:</strong> ${this.getGoalText(diet.goal)}</p>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button onclick="viewDiet('${diet.id}')" class="btn-outline btn-small">
+                                <i class="fas fa-eye"></i> Ver
+                            </button>
+                            <button onclick="exportDietToPDF('${diet.id}')" class="btn-small" style="background: var(--accent);">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            getGoalText(goal) {
+                const goals = {
+                    'weight_loss': 'Perda de Peso',
+                    'weight_gain': 'Ganho de Peso',
+                    'maintenance': 'Manutenção',
+                    'muscle_gain': 'Ganho de Massa Muscular',
+                    'health_improvement': 'Melhora da Saúde'
+                };
+                return goals[goal] || goal;
+            },
+
+            showMessage(message, type = 'success') {
+                alert(message); // Poderia ser substituído por um toast mais bonito
+            }
+        };
+
+        // Funções de Receita
+        function openPrescriptionModal() {
+            document.getElementById('prescriptionModal').classList.add('active');
+        }
+
+        function closePrescriptionModal() {
+            document.getElementById('prescriptionModal').classList.remove('active');
+        }
+
+        async function generatePrescription() {
+            const patientName = document.getElementById('patientName').value || 'Paciente';
+            const patientAge = document.getElementById('patientAge').value || 'Não informada';
+            const condition = document.getElementById('patientCondition').value || 'Consulta de rotina';
+            const medications = document.getElementById('medications').value || 'Medicação conforme avaliação';
+            const instructions = document.getElementById('prescriptionInstructions').value || 'Seguir orientações médicas';
+
+            if (!patientName) {
+                alert('Por favor, informe o nome do paciente!');
+                return;
+            }
+
+            const button = document.querySelector('#prescriptionResult').previousElementSibling;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando Receita...';
+            button.disabled = true;
+
+            try {
+                const prescriptionText = await HealthAssistant.generatePrescription({
+                    name: patientName,
+                    age: patientAge,
+                    condition: condition,
+                    medications: medications,
+                    instructions: instructions
+                });
+
+                const today = new Date().toLocaleDateString('pt-BR');
+                const prescriptionNumber = 'RX-' + new Date().getFullYear() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+                const prescriptionHTML = `
+                    <div class="prescription-container" id="prescriptionContent">
+                        <div class="prescription-watermark">SAÚDE AQUI</div>
+                        
+                        <div class="prescription-header">
+                            <div class="prescription-title">RECEITA MÉDICA</div>
+                            <p>${today} • Nº ${prescriptionNumber}</p>
+                        </div>
+                        
+                        <div class="prescription-patient">
+                            <p><strong>Paciente:</strong> ${patientName}</p>
+                            <p><strong>Idade:</strong> ${patientAge} anos</p>
+                            <p><strong>Condição:</strong> ${condition}</p>
+                        </div>
+                        
+                        <div class="prescription-medications">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">PRESCRIÇÃO MÉDICA</h3>
+                            <div style="white-space: pre-line;">${prescriptionText}</div>
+                        </div>
+                        
+                        <div class="prescription-footer">
+                            <div class="doctor-signature">
+                                <div class="signature-line"></div>
+                                <p><strong>Dr. Assistente IA</strong></p>
+                                <p>CRM: IA-${Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="export-buttons">
+                        <button onclick="savePrescription()" class="btn-success">
+                            <i class="fas fa-save"></i> Salvar Receita
+                        </button>
+                        <button onclick="exportToPDF()" class="btn-outline">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                        <button onclick="exportToPNG()" class="btn-outline">
+                            <i class="fas fa-image"></i> Exportar PNG
+                        </button>
+                        <button onclick="printPrescription()" class="btn-outline">
+                            <i class="fas fa-print"></i> Imprimir
+                        </button>
+                    </div>
+                `;
+
+                document.getElementById('prescriptionResult').innerHTML = prescriptionHTML;
+
+                // Salvar dados temporários
+                window.currentPrescriptionData = {
+                    patientName,
+                    patientAge,
+                    condition,
+                    medications,
+                    instructions,
+                    prescriptionText,
+                    date: new Date().toISOString(),
+                    prescriptionNumber
+                };
+
+            } catch (error) {
+                document.getElementById('prescriptionResult').innerHTML = '<p style="color: red;">Erro ao gerar receita. Tente novamente.</p>';
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
+
+        // Funções de Dieta
+        function openDietModal() {
+            document.getElementById('dietModal').classList.add('active');
+        }
+
+        function closeDietModal() {
+            document.getElementById('dietModal').classList.remove('active');
+        }
+
+        async function generateDietPlan() {
+            const patientName = document.getElementById('dietPatientName').value || 'Paciente';
+            const patientAge = document.getElementById('dietPatientAge').value || 'Não informada';
+            const weight = document.getElementById('patientWeight').value || 'Não informado';
+            const height = document.getElementById('patientHeight').value || 'Não informada';
+            const goal = document.getElementById('healthGoals').value;
+            const restrictions = document.getElementById('foodRestrictions').value || 'Nenhuma';
+            const habits = document.getElementById('typicalMeals').value || 'Não informado';
+
+            if (!patientName) {
+                alert('Por favor, informe o nome do paciente!');
+                return;
+            }
+
+            const button = document.querySelector('#dietResult').previousElementSibling;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando Dieta...';
+            button.disabled = true;
+
+            try {
+                const dietText = await HealthAssistant.generateDietPlan({
+                    name: patientName,
+                    age: patientAge,
+                    weight: weight,
+                    height: height,
+                    goal: goal,
+                    restrictions: restrictions,
+                    habits: habits
+                });
+
+                const today = new Date().toLocaleDateString('pt-BR');
+
+                const dietHTML = `
+                    <div class="diet-plan" id="dietContent">
+                        <div class="prescription-header">
+                            <div class="prescription-title">PLANO ALIMENTAR</div>
+                            <p>${today}</p>
+                        </div>
+                        
+                        <div class="prescription-patient">
+                            <p><strong>Paciente:</strong> ${patientName}</p>
+                            <p><strong>Idade:</strong> ${patientAge} anos</p>
+                            <p><strong>Peso:</strong> ${weight} kg • <strong>Altura:</strong> ${height} cm</p>
+                            <p><strong>Objetivo:</strong> ${App.getGoalText(goal)}</p>
+                            <p><strong>Restrições:</strong> ${restrictions}</p>
+                        </div>
+                        
+                        <div style="white-space: pre-line; margin: 20px 0;">${dietText}</div>
+                        
+                        <div class="prescription-footer">
+                            <div class="doctor-signature">
+                                <div class="signature-line"></div>
+                                <p><strong>Nutricionista Assistente IA</strong></p>
+                                <p>CRN: IA-${Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="export-buttons">
+                        <button onclick="saveDiet()" class="btn-info">
+                            <i class="fas fa-save"></i> Salvar Dieta
+                        </button>
+                        <button onclick="exportDietToPDF()" class="btn-outline">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                        <button onclick="printDiet()" class="btn-outline">
+                            <i class="fas fa-print"></i> Imprimir
+                        </button>
+                    </div>
+                `;
+
+                document.getElementById('dietResult').innerHTML = dietHTML;
+
+                // Salvar dados temporários
+                window.currentDietData = {
+                    patientName,
+                    patientAge,
+                    weight,
+                    height,
+                    goal,
+                    restrictions,
+                    habits,
+                    dietText,
+                    date: new Date().toISOString()
+                };
+
+            } catch (error) {
+                document.getElementById('dietResult').innerHTML = '<p style="color: red;">Erro ao gerar dieta. Tente novamente.</p>';
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
+
+        // Funções de Exportação
+        async function exportToPDF(prescriptionId = null) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            let contentElement;
+            if (prescriptionId) {
+                // Buscar receita salva
+                const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+                const prescription = prescriptions.find(p => p.id === prescriptionId);
+                if (prescription) {
+                    doc.text(`Receita Médica - ${prescription.patientName}`, 20, 20);
+                    doc.text(`Data: ${new Date(prescription.date).toLocaleDateString('pt-BR')}`, 20, 30);
+                    doc.text(`Paciente: ${prescription.patientName}`, 20, 40);
+                    doc.text(`Idade: ${prescription.patientAge} anos`, 20, 50);
+                    doc.text('Prescrição:', 20, 70);
+                    const splitText = doc.splitTextToSize(prescription.prescriptionText, 170);
+                    doc.text(splitText, 20, 80);
+                }
+            } else {
+                // Usar receita atual
+                contentElement = document.getElementById('prescriptionContent');
+                if (!contentElement) {
+                    alert('Nenhuma receita para exportar!');
+                    return;
+                }
+                
+                await html2canvas(contentElement).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 210; // A4 width in mm
+                    const pageHeight = 295; // A4 height in mm
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+
+                    let position = 0;
+
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                });
+            }
+
+            doc.save(`receita-${new Date().getTime()}.pdf`);
+        }
+
+        async function exportToPNG(prescriptionId = null) {
+            let contentElement;
+            
+            if (prescriptionId) {
+                // Para receitas salvas, recriar o conteúdo
+                const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+                const prescription = prescriptions.find(p => p.id === prescriptionId);
+                if (prescription) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = `
+                        <div class="prescription-container" style="width: 800px;">
+                            <div class="prescription-header">
+                                <div class="prescription-title">RECEITA MÉDICA</div>
+                                <p>${new Date(prescription.date).toLocaleDateString('pt-BR')}</p>
+                            </div>
+                            <div class="prescription-patient">
+                                <p><strong>Paciente:</strong> ${prescription.patientName}</p>
+                                <p><strong>Idade:</strong> ${prescription.patientAge} anos</p>
+                            </div>
+                            <div class="prescription-medications">
+                                <div style="white-space: pre-line;">${prescription.prescriptionText}</div>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(tempDiv);
+                    contentElement = tempDiv;
+                }
+            } else {
+                contentElement = document.getElementById('prescriptionContent');
+            }
+
+            if (!contentElement) {
+                alert('Nenhuma receita para exportar!');
+                return;
+            }
+
+            await html2canvas(contentElement).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `receita-${new Date().getTime()}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+                
+                // Limpar elemento temporário se existir
+                if (prescriptionId) {
+                    contentElement.remove();
+                }
+            });
+        }
+
+        async function exportDietToPDF(dietId = null) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            let contentElement;
+            if (dietId) {
+                // Buscar dieta salva
+                const diets = JSON.parse(localStorage.getItem(`diets_${App.currentUser?.id}`) || '[]');
+                const diet = diets.find(d => d.id === dietId);
+                if (diet) {
+                    doc.text(`Plano Alimentar - ${diet.patientName}`, 20, 20);
+                    doc.text(`Data: ${new Date(diet.date).toLocaleDateString('pt-BR')}`, 20, 30);
+                    doc.text(`Paciente: ${diet.patientName}`, 20, 40);
+                    doc.text(`Idade: ${diet.patientAge} anos`, 20, 50);
+                    doc.text('Plano Alimentar:', 20, 70);
+                    const splitText = doc.splitTextToSize(diet.dietText, 170);
+                    doc.text(splitText, 20, 80);
+                }
+            } else {
+                contentElement = document.getElementById('dietContent');
+                if (!contentElement) {
+                    alert('Nenhuma dieta para exportar!');
+                    return;
+                }
+                
+                await html2canvas(contentElement).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+
+                    let position = 0;
+
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                });
+            }
+
+            doc.save(`dieta-${new Date().getTime()}.pdf`);
+        }
+
+        // Funções de Salvamento
+        function savePrescription() {
+            if (!window.currentPrescriptionData) {
+                alert('Nenhuma receita para salvar!');
+                return;
+            }
+
+            const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+            prescriptions.push({
+                ...window.currentPrescriptionData,
+                id: Date.now().toString()
+            });
+
+            localStorage.setItem(`prescriptions_${App.currentUser?.id}`, JSON.stringify(prescriptions));
+            alert('Receita salva com sucesso!');
+            closePrescriptionModal();
+            App.loadPrescriptions();
+        }
+
+        function saveDiet() {
+            if (!window.currentDietData) {
+                alert('Nenhuma dieta para salvar!');
+                return;
+            }
+
+            const diets = JSON.parse(localStorage.getItem(`diets_${App.currentUser?.id}`) || '[]');
+            diets.push({
+                ...window.currentDietData,
+                id: Date.now().toString()
+            });
+
+            localStorage.setItem(`diets_${App.currentUser?.id}`, JSON.stringify(diets));
+            alert('Dieta salva com sucesso!');
+            closeDietModal();
+            App.loadDiets();
+        }
+
+        // Funções de Visualização
+        function viewPrescription(prescriptionId) {
+            const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+            const prescription = prescriptions.find(p => p.id === prescriptionId);
+
+            if (prescription) {
+                document.getElementById('patientName').value = prescription.patientName;
+                document.getElementById('patientAge').value = prescription.patientAge;
+                document.getElementById('patientCondition').value = prescription.condition;
+                document.getElementById('medications').value = prescription.medications;
+                document.getElementById('prescriptionInstructions').value = prescription.instructions;
+                
+                openPrescriptionModal();
+                // Gerar preview
+                setTimeout(() => generatePrescription(), 500);
+            }
+        }
+
+        function viewDiet(dietId) {
+            const diets = JSON.parse(localStorage.getItem(`diets_${App.currentUser?.id}`) || '[]');
+            const diet = diets.find(d => d.id === dietId);
+
+            if (diet) {
+                document.getElementById('dietPatientName').value = diet.patientName;
+                document.getElementById('dietPatientAge').value = diet.patientAge;
+                document.getElementById('patientWeight').value = diet.weight;
+                document.getElementById('patientHeight').value = diet.height;
+                document.getElementById('healthGoals').value = diet.goal;
+                document.getElementById('foodRestrictions').value = diet.restrictions;
+                document.getElementById('typicalMeals').value = diet.habits;
+                
+                openDietModal();
+                // Gerar preview
+                setTimeout(() => generateDietPlan(), 500);
+            }
+        }
+
+        function printPrescription() {
+            const contentElement = document.getElementById('prescriptionContent');
+            if (contentElement) {
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Receita Médica</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; margin: 20px; }
+                                ${document.querySelector('style').innerHTML}
+                            </style>
+                        </head>
+                        <body>
+                            ${contentElement.outerHTML}
+                        </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+            }
+        }
+
+        function printDiet() {
+            const contentElement = document.getElementById('dietContent');
+            if (contentElement) {
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Plano Alimentar</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; margin: 20px; }
+                                ${document.querySelector('style').innerHTML}
+                            </style>
+                        </head>
+                        <body>
+                            ${contentElement.outerHTML}
+                        </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+            }
+        }
+
+        // Inicializar a aplicação
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+        });
+
+        // Fechar modal ao clicar fora
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
