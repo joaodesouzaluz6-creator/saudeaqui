@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaúdeAqui - Diário Alimentar Inteligente</title>
+    <title>SaúdeAqui - Receitas e Dietas Inteligentes</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -18,7 +18,6 @@
             --success: #388E3C;
             --warning: #F57C00;
             --info: #0288D1;
-            --danger: #D32F2F;
             --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
             --hover-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
@@ -46,7 +45,7 @@
             display: none !important;
         }
         
-        /* Tela de Login/Cadastro */
+        /* Tela de Login */
         .auth-container {
             display: flex;
             justify-content: center;
@@ -97,6 +96,71 @@
             border-bottom: 3px solid var(--primary);
         }
         
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success);
+        }
+        
+        .btn-info {
+            background: var(--info);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
         /* Header */
         .app-header {
             background: white;
@@ -119,22 +183,10 @@
             color: var(--primary);
         }
         
-        .user-info {
+        .user-menu {
             display: flex;
             align-items: center;
             gap: 15px;
-        }
-        
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
         }
         
         /* Navegação */
@@ -192,235 +244,7 @@
             font-weight: 700;
         }
         
-        .card-subtitle {
-            color: #666;
-            font-size: 14px;
-            margin-top: 5px;
-        }
-        
-        /* Formulários */
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
-        
-        input:focus, select:focus, textarea:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-        
-        .form-row {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .form-row .form-group {
-            flex: 1;
-        }
-        
-        /* Botões */
-        button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        button:hover {
-            background: var(--primary-light);
-            transform: translateY(-2px);
-        }
-        
-        .btn-success {
-            background: var(--success);
-        }
-        
-        .btn-warning {
-            background: var(--warning);
-        }
-        
-        .btn-danger {
-            background: var(--danger);
-        }
-        
-        .btn-info {
-            background: var(--info);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-small {
-            padding: 8px 15px;
-            font-size: 14px;
-        }
-
-        .btn-icon {
-            padding: 10px;
-            width: 40px;
-            height: 40px;
-            justify-content: center;
-        }
-
-        /* Lista de Alimentos */
-        .food-entry {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .food-info {
-            flex: 1;
-        }
-        
-        .food-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .food-details {
-            font-size: 14px;
-            color: #666;
-            display: flex;
-            gap: 15px;
-        }
-        
-        .food-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        /* Estatísticas */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .stat-label {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        /* Progresso */
-        .progress-container {
-            margin: 20px 0;
-        }
-        
-        .progress-bar {
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            transition: width 0.5s ease;
-        }
-        
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: #666;
-        }
-        
-        /* Relatórios */
-        .report-container {
-            background: white;
-            border: 2px solid var(--primary);
-            border-radius: 10px;
-            padding: 30px;
-            margin: 20px 0;
-            position: relative;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        }
-
-        .report-watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-45deg);
-            font-size: 80px;
-            font-weight: 900;
-            color: rgba(46, 125, 50, 0.05);
-            pointer-events: none;
-        }
-        
-        .report-header {
-            text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 15px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .report-title {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-        
-        .report-date {
-            color: #666;
-        }
-        
-        /* Chat IA */
+        /* Chat */
         .chat-container {
             background: white;
             border-radius: 12px;
@@ -523,7 +347,7 @@
             border-radius: 15px;
             padding: 30px;
             width: 90%;
-            max-width: 500px;
+            max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -550,30 +374,120 @@
             color: #666;
         }
 
-        /* Tabela de Alimentos */
-        .food-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-        
-        .food-table th {
-            background: var(--primary);
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .food-table td {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .food-table tr:hover {
-            background: #f5f5f5;
+        /* Receita Médica */
+        .prescription-container {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
         }
 
-        /* Exportação */
+        .prescription-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 80px;
+            font-weight: 900;
+            color: rgba(46, 125, 50, 0.05);
+            pointer-events: none;
+        }
+        
+        .prescription-header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .prescription-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        .prescription-patient {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .prescription-medications {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .medication-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--success);
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .prescription-footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .doctor-signature {
+            text-align: center;
+        }
+        
+        .signature-line {
+            width: 200px;
+            border-top: 1px solid var(--dark);
+            margin: 10px 0;
+            padding-top: 5px;
+        }
+
+        /* Dieta */
+        .diet-plan {
+            background: white;
+            border: 2px solid var(--info);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 15px 0;
+        }
+
+        .meal-time {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .meal-title {
+            font-weight: bold;
+            color: var(--info);
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .food-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid var(--info);
+        }
+
         .export-buttons {
             display: flex;
             gap: 10px;
@@ -599,29 +513,19 @@
                 gap: 15px;
             }
             
-            .form-row {
+            .prescription-footer {
                 flex-direction: column;
-                gap: 0;
+                gap: 20px;
             }
 
             .export-buttons {
                 flex-direction: column;
             }
-            
-            .food-entry {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .food-actions {
-                align-self: flex-end;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Tela de Login/Cadastro -->
+    <!-- Tela de Autenticação -->
     <div id="authScreen" class="auth-container">
         <div class="auth-form">
             <div class="auth-header">
@@ -629,7 +533,7 @@
                     <i class="fas fa-heartbeat"></i>
                     SaúdeAqui
                 </div>
-                <div style="color: #666;">Diário Alimentar Inteligente</div>
+                <div style="color: #666;">Receitas e Dietas Inteligentes</div>
             </div>
             
             <div class="auth-tabs">
@@ -646,7 +550,7 @@
                     <label for="loginPassword">Senha</label>
                     <input type="password" id="loginPassword" placeholder="Sua senha" required>
                 </div>
-                <button type="submit" class="btn-success" style="width: 100%;">
+                <button type="submit">
                     <i class="fas fa-sign-in-alt"></i>
                     Entrar
                 </button>
@@ -669,7 +573,7 @@
                     <label for="registerConfirmPassword">Confirmar Senha</label>
                     <input type="password" id="registerConfirmPassword" placeholder="Confirme sua senha" required>
                 </div>
-                <button type="submit" class="btn-info" style="width: 100%;">
+                <button type="submit">
                     <i class="fas fa-user-plus"></i>
                     Criar Conta
                 </button>
@@ -677,7 +581,7 @@
         </div>
     </div>
     
-    <!-- Aplicação Principal -->
+    <!-- Tela Principal -->
     <div id="mainApp" class="hidden">
         <header class="app-header">
             <div class="container header-content">
@@ -685,10 +589,9 @@
                     <i class="fas fa-heartbeat"></i>
                     SaúdeAqui
                 </div>
-                <div class="user-info">
-                    <div class="user-avatar" id="userInitial">U</div>
+                <div class="user-menu">
                     <span id="userName">Usuário</span>
-                    <button id="logoutBtn" class="btn-outline btn-small">
+                    <button id="logoutBtn" class="btn-outline">
                         <i class="fas fa-sign-out-alt"></i>
                         Sair
                     </button>
@@ -699,626 +602,351 @@
         <nav class="app-nav">
             <div class="container">
                 <div class="nav-tabs">
-                    <div class="nav-tab active" data-tab="dashboard">Meu Dia</div>
-                    <div class="nav-tab" data-tab="profile">Meu Perfil</div>
-                    <div class="nav-tab" data-tab="food">Meus Alimentos</div>
-                    <div class="nav-tab" data-tab="reports">Relatórios</div>
-                    <div class="nav-tab" data-tab="assistant">Assistente IA</div>
+                    <div class="nav-tab active" data-tab="dashboard">Dashboard</div>
+                    <div class="nav-tab" data-tab="prescriptions">Receitas Médicas</div>
+                    <div class="nav-tab" data-tab="diet">Dietas e Nutrição</div>
+                    <div class="nav-tab" data-tab="health">Saúde</div>
                 </div>
             </div>
         </nav>
         
         <main class="container">
-            <!-- Dashboard Principal -->
+            <!-- Dashboard -->
             <div id="dashboardTab" class="tab-content">
                 <div class="dashboard">
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Meu Progresso Hoje</div>
-                            <div class="card-subtitle" id="todayDate"></div>
+                            <div class="card-title">Gerar Receita Médica</div>
+                            <i class="fas fa-file-medical" style="color: var(--primary);"></i>
                         </div>
-                        
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value" id="caloriesToday">0</div>
-                                <div class="stat-label">Calorias</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="foodsToday">0</div>
-                                <div class="stat-label">Alimentos</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="waterToday">0</div>
-                                <div class="stat-label">Copos de Água</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="goalProgress">0%</div>
-                                <div class="stat-label">Meta Calórica</div>
-                            </div>
-                        </div>
-                        
-                        <div class="progress-container">
-                            <div class="progress-bar">
-                                <div class="progress-fill" id="calorieProgressBar" style="width: 0%"></div>
-                            </div>
-                            <div class="progress-info">
-                                <span>Consumido: <span id="caloriesConsumed">0</span> kcal</span>
-                                <span>Meta: <span id="calorieGoal">2000</span> kcal</span>
-                            </div>
-                        </div>
+                        <p>Crie receitas médicas profissionais para qualquer paciente</p>
+                        <button class="btn-success" style="margin-top: 15px;" onclick="openPrescriptionModal()">
+                            <i class="fas fa-plus"></i>
+                            Nova Receita
+                        </button>
                     </div>
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Adicionar Alimento</div>
+                            <div class="card-title">Plano Alimentar</div>
                             <i class="fas fa-utensils" style="color: var(--primary);"></i>
                         </div>
-                        
-                        <div class="form-group">
-                            <label for="foodName">Nome do Alimento</label>
-                            <input type="text" id="foodName" placeholder="Ex: Arroz integral, Frango grelhado...">
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="foodQuantity">Quantidade (g/ml)</label>
-                                <input type="number" id="foodQuantity" placeholder="100">
-                            </div>
-                            <div class="form-group">
-                                <label for="foodCalories">Calorias (kcal)</label>
-                                <input type="number" id="foodCalories" placeholder="150">
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="foodTime">Horário da Refeição</label>
-                            <select id="foodTime">
-                                <option value="breakfast">Café da Manhã</option>
-                                <option value="lunch">Almoço</option>
-                                <option value="snack">Lanche</option>
-                                <option value="dinner">Jantar</option>
-                                <option value="other">Outro</option>
-                            </select>
-                        </div>
-                        
-                        <button onclick="addFoodEntry()" class="btn-success" style="width: 100%;">
-                            <i class="fas fa-plus"></i>
-                            Adicionar Alimento
+                        <p>Crie dietas personalizadas com IA</p>
+                        <button class="btn-info" style="margin-top: 15px;" onclick="openDietModal()">
+                            <i class="fas fa-utensils"></i>
+                            Nova Dieta
                         </button>
                     </div>
                     
                     <div class="card">
                         <div class="card-header">
-                            <div class="card-title">Alimentos de Hoje</div>
-                            <i class="fas fa-list" style="color: var(--primary);"></i>
+                            <div class="card-title">Minhas Receitas</div>
+                            <i class="fas fa-file-prescription" style="color: var(--primary);"></i>
                         </div>
-                        <div id="todayFoods">
-                            <p style="text-align: center; color: #666; padding: 20px;">
-                                Nenhum alimento registrado hoje
-                            </p>
+                        <div id="prescriptionList">
+                            <p>Suas receitas salvas aparecerão aqui</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="card" style="margin-top: 20px;">
-                    <div class="card-header">
-                        <div class="card-title">Meta de Perda de Peso</div>
-                        <button class="btn-outline btn-small" onclick="updateWeightGoal()">
-                            <i class="fas fa-edit"></i> Alterar
-                        </button>
-                    </div>
-                    
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress-fill" id="weightProgressBar" style="width: 0%"></div>
-                        </div>
-                        <div class="progress-info">
-                            <span>Peso Atual: <span id="currentWeight">--</span> kg</span>
-                            <span>Meta: <span id="targetWeight">--</span> kg</span>
-                            <span>Faltam: <span id="weightLeft">--</span> kg</span>
-                        </div>
-                    </div>
-                    
-                    <div style="text-align: center; margin-top: 15px;">
-                        <button onclick="generateWeightReport()" class="btn-info">
-                            <i class="fas fa-chart-line"></i>
-                            Gerar Relatório de Progresso
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Meu Perfil -->
-            <div id="profileTab" class="tab-content hidden">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Meus Dados Pessoais</div>
-                        <i class="fas fa-user" style="color: var(--primary);"></i>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="userFirstName">Nome</label>
-                            <input type="text" id="userFirstName" placeholder="Seu nome">
-                        </div>
-                        <div class="form-group">
-                            <label for="userLastName">Sobrenome</label>
-                            <input type="text" id="userLastName" placeholder="Seu sobrenome">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="userAge">Idade</label>
-                            <input type="number" id="userAge" placeholder="Sua idade">
-                        </div>
-                        <div class="form-group">
-                            <label for="userGender">Sexo</label>
-                            <select id="userGender">
-                                <option value="">Selecionar</option>
-                                <option value="male">Masculino</option>
-                                <option value="female">Feminino</option>
-                                <option value="other">Outro</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="userHeight">Altura (cm)</label>
-                            <input type="number" id="userHeight" placeholder="Ex: 175">
-                        </div>
-                        <div class="form-group">
-                            <label for="userWeight">Peso Atual (kg)</label>
-                            <input type="number" id="userWeight" placeholder="Ex: 70.5" step="0.1">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="userGoal">Meu Objetivo</label>
-                        <select id="userGoal">
-                            <option value="weight_loss">Perda de Peso</option>
-                            <option value="weight_gain">Ganho de Peso</option>
-                            <option value="maintenance">Manutenção</option>
-                            <option value="muscle_gain">Ganho de Massa Muscular</option>
-                            <option value="health_improvement">Melhora da Saúde</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="userActivity">Nível de Atividade Física</label>
-                        <select id="userActivity">
-                            <option value="sedentary">Sedentário (pouco ou nenhum exercício)</option>
-                            <option value="light">Levemente ativo (exercício leve 1-3 dias/semana)</option>
-                            <option value="moderate">Moderadamente ativo (exercício moderado 3-5 dias/semana)</option>
-                            <option value="active">Muito ativo (exercício intenso 6-7 dias/semana)</option>
-                            <option value="athlete">Extremamente ativo (atleta profissional)</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="targetWeightInput">Peso Desejado (kg)</label>
-                        <input type="number" id="targetWeightInput" placeholder="Ex: 65" step="0.1">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="weeklyGoal">Meta Semanal</label>
-                        <select id="weeklyGoal">
-                            <option value="0.25">Perder 0.25 kg por semana</option>
-                            <option value="0.5" selected>Perder 0.5 kg por semana</option>
-                            <option value="0.75">Perder 0.75 kg por semana</option>
-                            <option value="1">Perder 1 kg por semana</option>
-                        </select>
-                    </div>
-                    
-                    <button onclick="saveProfile()" class="btn-success" style="width: 100%;">
-                        <i class="fas fa-save"></i>
-                        Salvar Meus Dados
-                    </button>
-                </div>
-                
-                <div class="card" style="margin-top: 20px;">
-                    <div class="card-header">
-                        <div class="card-title">Minhas Metas Diárias</div>
-                        <i class="fas fa-bullseye" style="color: var(--primary);"></i>
-                    </div>
-                    
-                    <div id="dailyGoals">
-                        <p style="text-align: center; color: #666; padding: 20px;">
-                            Configure seu perfil para ver suas metas
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Meus Alimentos -->
-            <div id="foodTab" class="tab-content hidden">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Histórico de Alimentos</div>
-                        <div style="display: flex; gap: 10px;">
-                            <select id="foodHistoryFilter" onchange="filterFoodHistory()" style="width: auto;">
-                                <option value="all">Todos os dias</option>
-                                <option value="today">Hoje</option>
-                                <option value="week">Esta semana</option>
-                                <option value="month">Este mês</option>
-                            </select>
-                            <button class="btn-danger btn-small" onclick="clearFoodHistory()">
-                                <i class="fas fa-trash"></i> Limpar
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="foodHistory">
-                        <p style="text-align: center; color: #666; padding: 20px;">
-                            Nenhum alimento registrado
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="card" style="margin-top: 20px;">
-                    <div class="card-header">
-                        <div class="card-title">Alimentos Frequentes</div>
-                        <i class="fas fa-star" style="color: var(--primary);"></i>
-                    </div>
-                    
-                    <div id="frequentFoods">
-                        <p style="text-align: center; color: #666; padding: 20px;">
-                            Adicione alimentos para ver seus favoritos
-                        </p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Relatórios -->
-            <div id="reportsTab" class="tab-content hidden">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">Gerar Relatórios</div>
-                        <i class="fas fa-file-alt" style="color: var(--primary);"></i>
-                    </div>
-                    
-                    <div class="dashboard">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">Relatório Diário</div>
-                                <i class="fas fa-calendar-day" style="color: var(--info);"></i>
-                            </div>
-                            <p>Gere um relatório completo do que você consumiu hoje</p>
-                            <button class="btn-info" style="margin-top: 15px;" onclick="generateDailyReport()">
-                                <i class="fas fa-file-pdf"></i>
-                                Gerar Relatório Diário
-                            </button>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">Relatório Semanal</div>
-                                <i class="fas fa-calendar-week" style="color: var(--success);"></i>
-                            </div>
-                            <p>Análise completa da sua semana alimentar</p>
-                            <button class="btn-success" style="margin-top: 15px;" onclick="generateWeeklyReport()">
-                                <i class="fas fa-chart-bar"></i>
-                                Gerar Relatório Semanal
-                            </button>
-                        </div>
-                        
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="card-title">Progresso de Peso</div>
-                                <i class="fas fa-weight" style="color: var(--warning);"></i>
-                            </div>
-                            <p>Relatório de evolução do seu peso e metas</p>
-                            <button class="btn-warning" style="margin-top: 15px;" onclick="generateWeightProgressReport()">
-                                <i class="fas fa-chart-line"></i>
-                                Progresso de Peso
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div id="reportResult" style="margin-top: 20px;"></div>
-                </div>
-            </div>
-            
-            <!-- Assistente IA -->
-            <div id="assistantTab" class="tab-content hidden">
                 <div class="chat-container">
                     <div class="card-header">
-                        <div class="card-title">Assistente de Nutrição IA</div>
+                        <div class="card-title">Assistente de Saúde IA</div>
                         <i class="fas fa-robot" style="color: var(--primary);"></i>
                     </div>
-                    
                     <div class="chat-messages" id="chatMessages">
                         <div class="message ai-message">
-                            <strong>Nutri Assistente:</strong> Olá! Sou seu assistente de nutrição inteligente. Posso ajudar você a:
-                            <br>• Analisar seus hábitos alimentares
-                            <br>• Sugerir melhorias na dieta
-                            <br>• Calcular suas necessidades calóricas
-                            <br>• Criar planos alimentares personalizados
-                            <br>• Responder dúvidas sobre nutrição
+                            <strong>Assistente IA:</strong> Olá! Sou seu assistente de saúde inteligente. Posso ajudar você a:
+                            <br>• Criar receitas médicas profissionais
+                            <br>• Elaborar planos alimentares personalizados
+                            <br>• Dar orientações sobre dieta e nutrição
+                            <br>• Responder perguntas sobre saúde
                             <br><br>Como posso ajudá-lo hoje?
                         </div>
                     </div>
-                    
                     <div class="chat-input">
-                        <input type="text" id="chatInput" placeholder="Pergunte sobre nutrição, dieta, calorias...">
-                        <button id="sendMessage" class="btn-icon">
+                        <input type="text" id="chatInput" placeholder="Pergunte sobre receitas, dietas, nutrição...">
+                        <button id="sendMessage">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
                 </div>
             </div>
+            
+            <!-- Receitas Médicas -->
+            <div id="prescriptionsTab" class="tab-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Receitas Médicas</div>
+                        <button class="btn-success" onclick="openPrescriptionModal()">
+                            <i class="fas fa-plus"></i>
+                            Nova Receita
+                        </button>
+                    </div>
+                    <div id="savedPrescriptions">
+                        <!-- Receitas salvas aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dietas -->
+            <div id="dietTab" class="tab-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Planos Alimentares e Dietas</div>
+                        <button class="btn-info" onclick="openDietModal()">
+                            <i class="fas fa-utensils"></i>
+                            Nova Dieta
+                        </button>
+                    </div>
+                    <div id="savedDiets">
+                        <!-- Dietas salvas aparecerão aqui -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Saúde -->
+            <div id="healthTab" class="tab-content hidden">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Meus Dados de Saúde</div>
+                    </div>
+                    <p>Em desenvolvimento...</p>
+                </div>
+            </div>
         </main>
         
         <footer>
-            <p>SaúdeAqui &copy; 2024 - Diário Alimentar Inteligente</p>
-            <p style="font-size: 14px; margin-top: 10px;">
-                <i class="fas fa-shield-alt"></i> Seus dados são armazenados localmente no seu navegador
-            </p>
+            <p>SaúdeAqui &copy; 2024 - Sistema Inteligente de Receitas e Dietas</p>
         </footer>
     </div>
-    
-    <!-- Modal de Relatório -->
-    <div id="reportModal" class="modal">
+
+    <!-- Modal de Receita -->
+    <div id="prescriptionModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-title">
-                    <i class="fas fa-file-alt"></i> Relatório Gerado
+                    <i class="fas fa-file-medical"></i> Nova Receita Médica
                 </div>
-                <button class="close-modal" onclick="closeReportModal()">&times;</button>
+                <button class="close-modal" onclick="closePrescriptionModal()">&times;</button>
             </div>
             
-            <div id="reportContent" style="max-height: 60vh; overflow-y: auto;">
-                <!-- Conteúdo do relatório será inserido aqui -->
+            <div class="form-group">
+                <label for="patientName">Nome do Paciente</label>
+                <input type="text" id="patientName" placeholder="Nome completo do paciente">
             </div>
             
-            <div class="export-buttons">
-                <button onclick="exportToPDF()" class="btn-outline">
-                    <i class="fas fa-file-pdf"></i> Exportar PDF
-                </button>
-                <button onclick="exportToPNG()" class="btn-outline">
-                    <i class="fas fa-image"></i> Exportar PNG
-                </button>
-                <button onclick="printReport()" class="btn-outline">
-                    <i class="fas fa-print"></i> Imprimir
-                </button>
+            <div class="form-group">
+                <label for="patientAge">Idade</label>
+                <input type="number" id="patientAge" placeholder="Idade do paciente">
             </div>
+            
+            <div class="form-group">
+                <label for="patientCondition">Condição/Diagnóstico</label>
+                <input type="text" id="patientCondition" placeholder="Ex: Hipertensão, Diabetes, etc.">
+            </div>
+            
+            <div class="form-group">
+                <label for="medications">Medicamentos Prescritos</label>
+                <textarea id="medications" rows="4" placeholder="Liste os medicamentos, dosagens e posologias..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="prescriptionInstructions">Instruções Gerais</label>
+                <textarea id="prescriptionInstructions" rows="3" placeholder="Instruções adicionais..."></textarea>
+            </div>
+            
+            <button onclick="generatePrescription()" class="btn-success">
+                <i class="fas fa-magic"></i>
+                Gerar Receita com IA
+            </button>
+            
+            <div id="prescriptionResult" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- Modal de Dieta -->
+    <div id="dietModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">
+                    <i class="fas fa-utensils"></i> Plano Alimentar Personalizado
+                </div>
+                <button class="close-modal" onclick="closeDietModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="dietPatientName">Nome do Paciente</label>
+                <input type="text" id="dietPatientName" placeholder="Nome do paciente">
+            </div>
+            
+            <div class="form-group">
+                <label for="dietPatientAge">Idade</label>
+                <input type="number" id="dietPatientAge" placeholder="Idade">
+            </div>
+            
+            <div class="form-group">
+                <label for="patientWeight">Peso (kg)</label>
+                <input type="number" id="patientWeight" placeholder="Peso em kg">
+            </div>
+            
+            <div class="form-group">
+                <label for="patientHeight">Altura (cm)</label>
+                <input type="number" id="patientHeight" placeholder="Altura em cm">
+            </div>
+            
+            <div class="form-group">
+                <label for="healthGoals">Objetivos de Saúde</label>
+                <select id="healthGoals">
+                    <option value="weight_loss">Perda de Peso</option>
+                    <option value="weight_gain">Ganho de Peso</option>
+                    <option value="maintenance">Manutenção</option>
+                    <option value="muscle_gain">Ganho de Massa Muscular</option>
+                    <option value="health_improvement">Melhora da Saúde</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="foodRestrictions">Restrições Alimentares</label>
+                <textarea id="foodRestrictions" rows="3" placeholder="Alergias, intolerâncias, preferências..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="typicalMeals">Refeições que costuma fazer</label>
+                <textarea id="typicalMeals" rows="3" placeholder="Descreva o que costuma comer no dia a dia..."></textarea>
+            </div>
+            
+            <button onclick="generateDietPlan()" class="btn-info">
+                <i class="fas fa-utensils"></i>
+                Gerar Plano Alimentar com IA
+            </button>
+            
+            <div id="dietResult" style="margin-top: 20px;"></div>
         </div>
     </div>
 
     <script>
-        // Sistema de Autenticação
-        const Auth = {
-            usersKey: 'saudeaqui_users',
-            currentUserKey: 'saudeaqui_current_user',
-            
-            init() {
-                // Verificar se já está logado
-                const currentUser = this.getCurrentUser();
-                if (currentUser) {
-                    this.showApp(currentUser);
-                }
-            },
-            
-            getUsers() {
-                return JSON.parse(localStorage.getItem(this.usersKey)) || [];
-            },
-            
-            saveUsers(users) {
-                localStorage.setItem(this.usersKey, JSON.stringify(users));
-            },
-            
-            getCurrentUser() {
-                return JSON.parse(localStorage.getItem(this.currentUserKey));
-            },
-            
-            setCurrentUser(user) {
-                localStorage.setItem(this.currentUserKey, JSON.stringify(user));
-            },
-            
-            clearCurrentUser() {
-                localStorage.removeItem(this.currentUserKey);
-            },
-            
-            login(email, password) {
-                const users = this.getUsers();
-                const user = users.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    this.setCurrentUser(user);
-                    this.showApp(user);
-                    return { success: true, user };
-                }
-                
-                return { success: false, message: 'E-mail ou senha incorretos' };
-            },
-            
-            register(name, email, password, confirmPassword) {
-                // Validações
-                if (password !== confirmPassword) {
-                    return { success: false, message: 'As senhas não coincidem' };
-                }
-                
-                if (password.length < 6) {
-                    return { success: false, message: 'A senha deve ter pelo menos 6 caracteres' };
-                }
-                
-                const users = this.getUsers();
-                
-                // Verificar se o email já existe
-                if (users.some(u => u.email === email)) {
-                    return { success: false, message: 'Este e-mail já está cadastrado' };
-                }
-                
-                // Criar novo usuário
-                const newUser = {
-                    id: Date.now().toString(),
-                    name: name,
-                    email: email,
-                    password: password,
-                    profile: null,
-                    foodEntries: [],
-                    weightRecords: [],
-                    createdAt: new Date().toISOString()
-                };
-                
-                users.push(newUser);
-                this.saveUsers(users);
-                this.setCurrentUser(newUser);
-                this.showApp(newUser);
-                
-                return { success: true, user: newUser };
-            },
-            
-            logout() {
-                this.clearCurrentUser();
-                location.reload();
-            },
-            
-            showApp(user) {
-                document.getElementById('authScreen').classList.add('hidden');
-                document.getElementById('mainApp').classList.remove('hidden');
-                
-                // Atualizar interface do usuário
-                document.getElementById('userName').textContent = user.name;
-                document.getElementById('userInitial').textContent = user.name.charAt(0).toUpperCase();
-                
-                // Inicializar a aplicação
-                App.init(user);
-            }
-        };
+        // Configuração da API Gemini
+        const GEMINI_API_KEY = 'AIzaSyB_1OWiT3DpvzPQxy7O8qe0bPR4KLvmftw'; // Substitua pela sua chave
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
 
-        // Sistema de Armazenamento do Usuário
-        const UserStorage = {
-            getCurrentUser() {
-                return Auth.getCurrentUser();
-            },
-            
-            updateUser(updatedUser) {
-                const users = Auth.getUsers();
-                const index = users.findIndex(u => u.id === updatedUser.id);
-                
-                if (index !== -1) {
-                    users[index] = updatedUser;
-                    localStorage.setItem(Auth.usersKey, JSON.stringify(users));
-                    Auth.setCurrentUser(updatedUser);
+        // Sistema de IA
+        const HealthAssistant = {
+            async callGeminiAPI(prompt) {
+                if (!GEMINI_API_KEY || GEMINI_API_KEY === 'SUA_CHAVE_API_AQUI') {
+                    // Fallback local se não tiver API key
+                    return this.getLocalResponse(prompt);
                 }
-            },
-            
-            saveProfile(profile) {
-                const user = this.getCurrentUser();
-                if (!user) return;
-                
-                user.profile = profile;
-                this.updateUser(user);
-            },
-            
-            getProfile() {
-                const user = this.getCurrentUser();
-                return user ? user.profile : null;
-            },
-            
-            saveFoodEntry(food) {
-                const user = this.getCurrentUser();
-                if (!user) return;
-                
-                if (!user.foodEntries) user.foodEntries = [];
-                user.foodEntries.push(food);
-                this.updateUser(user);
-            },
-            
-            getFoodEntries() {
-                const user = this.getCurrentUser();
-                return user ? (user.foodEntries || []) : [];
-            },
-            
-            getTodayFoodEntries() {
-                const today = new Date().toDateString();
-                return this.getFoodEntries().filter(entry => 
-                    new Date(entry.date).toDateString() === today
-                );
-            },
-            
-            saveWeightRecord(weight) {
-                const user = this.getCurrentUser();
-                if (!user) return;
-                
-                if (!user.weightRecords) user.weightRecords = [];
-                user.weightRecords.push(weight);
-                this.updateUser(user);
-            },
-            
-            getWeightRecords() {
-                const user = this.getCurrentUser();
-                return user ? (user.weightRecords || []) : [];
-            },
-            
-            clearUserData() {
-                const user = this.getCurrentUser();
-                if (!user) return;
-                
-                user.foodEntries = [];
-                user.weightRecords = [];
-                this.updateUser(user);
-            }
-        };
 
-        // Sistema de Cálculos
-        const Calculator = {
-            calculateBMR(weight, height, age, gender) {
-                // Fórmula de Mifflin-St Jeor
-                if (gender === 'male') {
-                    return 10 * weight + 6.25 * height - 5 * age + 5;
-                } else {
-                    return 10 * weight + 6.25 * height - 5 * age - 161;
+                try {
+                    const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: prompt
+                                }]
+                            }]
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Erro na API');
+                    }
+
+                    const data = await response.json();
+                    return data.candidates[0].content.parts[0].text;
+                } catch (error) {
+                    console.error('Erro ao chamar API:', error);
+                    return this.getLocalResponse(prompt);
                 }
             },
 
-            calculateTDEE(bmr, activityLevel) {
-                const multipliers = {
-                    'sedentary': 1.2,
-                    'light': 1.375,
-                    'moderate': 1.55,
-                    'active': 1.725,
-                    'athlete': 1.9
-                };
-                return bmr * (multipliers[activityLevel] || 1.2);
-            },
-
-            calculateCalorieGoal(tdee, goal, weeklyGoal) {
-                // 1kg de gordura = aproximadamente 7700 kcal
-                const weeklyDeficit = weeklyGoal * 7700;
-                const dailyDeficit = weeklyDeficit / 7;
+            getLocalResponse(prompt) {
+                // Respostas locais para quando não há API
+                const lowerPrompt = prompt.toLowerCase();
                 
-                if (goal === 'weight_loss') {
-                    return Math.round(tdee - dailyDeficit);
-                } else if (goal === 'weight_gain') {
-                    return Math.round(tdee + dailyDeficit);
-                } else {
-                    return Math.round(tdee);
+                if (lowerPrompt.includes('receita') || lowerPrompt.includes('prescrição')) {
+                    return `Receita Médica Gerada Localmente:
+
+PACIENTE: [Nome do Paciente]
+DIAGNÓSTICO: [Condição do Paciente]
+
+MEDICAMENTOS PRESCRITOS:
+1. [Medicamento] - [Dosagem] - [Posologia]
+2. [Medicamento] - [Dosagem] - [Posologia]
+
+INSTRUÇÕES:
+• Seguir rigorosamente a posologia
+• Retornar para reavaliação em 30 dias
+• Em caso de efeitos adversos, suspender e contactar médico
+
+ASSINATURA: Dr. Assistente IA - CRM: IA-${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
                 }
+                
+                if (lowerPrompt.includes('dieta') || lowerPrompt.includes('alimentação')) {
+                    return `Plano Alimentar Personalizado:
+
+CAFÉ DA MANHÃ:
+• 2 fatias de pão integral
+• 1 ovo cozido
+• 1 xícara de chá verde
+• 1 fruta (maçã/banana)
+
+ALMOÇO:
+• Salada verde à vontade
+• 1 concha de feijão
+• 3 colheres de arroz integral
+• 1 filé de frango grelhado
+
+JANTAR:
+• Sopa de legumes
+• 1 porção de proteína magra
+• Legumes cozidos
+
+LANCHES:
+• Frutas
+• Iogurte natural
+• Castanhas
+
+RECOMENDAÇÕES:
+• Beber 2L de água por dia
+• Evitar alimentos processados
+• Fracionar as refeições`;
+                }
+
+                return 'Como assistente de saúde IA, posso ajudar com receitas médicas e planos alimentares. Use os botões no sistema para gerar conteúdo personalizado.';
             },
 
-            calculateWeightProgress(currentWeight, targetWeight, startWeight) {
-                if (!startWeight || !targetWeight || !currentWeight) return 0;
-                const totalToLose = startWeight - targetWeight;
-                const alreadyLost = startWeight - currentWeight;
-                return Math.min(100, Math.max(0, (alreadyLost / totalToLose) * 100));
+            async generatePrescription(patientData) {
+                const prompt = `Como médico, gere uma receita médica formal em português para:
+Paciente: ${patientData.name}
+Idade: ${patientData.age} anos
+Condição: ${patientData.condition}
+Medicamentos: ${patientData.medications}
+Instruções: ${patientData.instructions}
+
+Formate como uma receita médica profissional válida com cabeçalho, dados do paciente, medicamentos com dosagem e posologia, instruções e assinatura médica.`;
+
+                return await this.callGeminiAPI(prompt);
             },
 
-            calculateBMI(weight, height) {
-                // altura em metros
-                const heightInMeters = height / 100;
-                return weight / (heightInMeters * heightInMeters);
-            },
+            async generateDietPlan(patientData) {
+                const prompt = `Como nutricionista, crie um plano alimentar personalizado em português para:
+Paciente: ${patientData.name}
+Idade: ${patientData.age} anos
+Peso: ${patientData.weight} kg
+Altura: ${patientData.height} cm
+Objetivo: ${patientData.goal}
+Restrições: ${patientData.restrictions}
+Hábitos alimentares: ${patientData.habits}
 
-            getBMICategory(bmi) {
-                if (bmi < 18.5) return 'Abaixo do peso';
-                if (bmi < 25) return 'Peso normal';
-                if (bmi < 30) return 'Sobrepeso';
-                if (bmi < 35) return 'Obesidade grau I';
-                if (bmi < 40) return 'Obesidade grau II';
-                return 'Obesidade grau III';
+Forneça um plano completo com café da manhã, almoço, jantar e lanches, incluindo porções e recomendações nutricionais.`;
+
+                return await this.callGeminiAPI(prompt);
             }
         };
 
@@ -1326,16 +954,35 @@
         const App = {
             currentUser: null,
             
-            init(user) {
-                this.currentUser = user;
+            init() {
+                this.checkAuth();
                 this.setupEventListeners();
-                this.updateTodayDate();
-                this.loadDashboard();
-                setInterval(() => this.updateTodayDate(), 60000); // Atualiza a cada minuto
+            },
+
+            checkAuth() {
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    this.currentUser = JSON.parse(savedUser);
+                    this.showMainApp();
+                }
+            },
+
+            showMainApp() {
+                document.getElementById('authScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                this.updateUserInterface();
+                this.loadPrescriptions();
+                this.loadDiets();
+            },
+
+            updateUserInterface() {
+                if (this.currentUser) {
+                    document.getElementById('userName').textContent = this.currentUser.name;
+                }
             },
 
             setupEventListeners() {
-                // Login/Cadastro
+                // Autenticação
                 document.getElementById('loginTab').addEventListener('click', () => this.switchAuthTab('login'));
                 document.getElementById('registerTab').addEventListener('click', () => this.switchAuthTab('register'));
                 document.getElementById('loginForm').addEventListener('submit', (e) => this.handleLogin(e));
@@ -1373,11 +1020,16 @@
                 const email = document.getElementById('loginEmail').value;
                 const password = document.getElementById('loginPassword').value;
 
-                const result = Auth.login(email, password);
-                if (result.success) {
-                    this.showToast('Login realizado com sucesso!', 'success');
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = users.find(u => u.email === email && u.password === password);
+
+                if (user) {
+                    this.currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.showMainApp();
+                    this.showMessage('Login realizado com sucesso!');
                 } else {
-                    this.showToast(result.message, 'error');
+                    this.showMessage('E-mail ou senha incorretos!', 'error');
                 }
             },
 
@@ -1388,36 +1040,37 @@
                 const password = document.getElementById('registerPassword').value;
                 const confirmPassword = document.getElementById('registerConfirmPassword').value;
 
-                const result = Auth.register(name, email, password, confirmPassword);
-                if (result.success) {
-                    this.showToast('Conta criada com sucesso!', 'success');
-                } else {
-                    this.showToast(result.message, 'error');
+                if (password !== confirmPassword) {
+                    this.showMessage('As senhas não coincidem!', 'error');
+                    return;
                 }
+
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                if (users.find(u => u.email === email)) {
+                    this.showMessage('Este e-mail já está cadastrado!', 'error');
+                    return;
+                }
+
+                const newUser = {
+                    id: Date.now().toString(),
+                    name: name,
+                    email: email,
+                    password: password,
+                    createdAt: new Date().toISOString()
+                };
+
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                this.showMessage('Cadastro realizado com sucesso!');
+                this.switchAuthTab('login');
             },
 
             handleLogout() {
-                Auth.logout();
-            },
-
-            showToast(message, type = 'success') {
-                const toast = document.createElement('div');
-                toast.style.cssText = `
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    background: ${type === 'success' ? 'var(--success)' : 'var(--danger)'};
-                    color: white;
-                    padding: 15px 20px;
-                    border-radius: 8px;
-                    box-shadow: var(--card-shadow);
-                    z-index: 10000;
-                    animation: slideIn 0.3s ease;
-                `;
-                toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation-circle'}"></i> ${message}`;
-                document.body.appendChild(toast);
-                
-                setTimeout(() => toast.remove(), 3000);
+                this.currentUser = null;
+                localStorage.removeItem('currentUser');
+                document.getElementById('authScreen').classList.remove('hidden');
+                document.getElementById('mainApp').classList.add('hidden');
             },
 
             switchTab(tabName) {
@@ -1429,304 +1082,13 @@
                 document.querySelectorAll('.tab-content').forEach(content => {
                     content.classList.add('hidden');
                 });
-                
-                if (tabName === 'dashboard') {
-                    this.loadDashboard();
-                } else if (tabName === 'profile') {
-                    this.loadProfile();
-                } else if (tabName === 'food') {
-                    this.loadFoodHistory();
-                } else if (tabName === 'reports') {
-                    this.loadReports();
-                }
-                
                 document.getElementById(`${tabName}Tab`).classList.remove('hidden');
-            },
 
-            updateTodayDate() {
-                const today = new Date();
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                document.getElementById('todayDate').textContent = today.toLocaleDateString('pt-BR', options);
-            },
-
-            loadDashboard() {
-                this.updateTodayStats();
-                this.updateWeightProgress();
-                this.loadTodayFoods();
-            },
-
-            updateTodayStats() {
-                const todayEntries = UserStorage.getTodayFoodEntries();
-                const totalCalories = todayEntries.reduce((sum, entry) => sum + (parseFloat(entry.calories) || 0), 0);
-                const foodCount = todayEntries.length;
-                
-                // Calcular meta calórica
-                let calorieGoal = 2000;
-                const profile = UserStorage.getProfile();
-                if (profile) {
-                    const bmr = Calculator.calculateBMR(
-                        profile.weight,
-                        profile.height,
-                        profile.age,
-                        profile.gender
-                    );
-                    const tdee = Calculator.calculateTDEE(bmr, profile.activity);
-                    calorieGoal = Calculator.calculateCalorieGoal(
-                        tdee,
-                        profile.goal,
-                        parseFloat(profile.weeklyGoal || 0.5)
-                    );
+                if (tabName === 'prescriptions') {
+                    this.loadPrescriptions();
+                } else if (tabName === 'diet') {
+                    this.loadDiets();
                 }
-                
-                const progress = Math.min(100, (totalCalories / calorieGoal) * 100);
-                
-                document.getElementById('caloriesToday').textContent = totalCalories;
-                document.getElementById('foodsToday').textContent = foodCount;
-                document.getElementById('caloriesConsumed').textContent = totalCalories;
-                document.getElementById('calorieGoal').textContent = calorieGoal;
-                document.getElementById('goalProgress').textContent = `${Math.round(progress)}%`;
-                document.getElementById('calorieProgressBar').style.width = `${progress}%`;
-                
-                // Água (simulação)
-                const waterCount = Math.min(8, Math.floor(foodCount / 2));
-                document.getElementById('waterToday').textContent = waterCount;
-            },
-
-            updateWeightProgress() {
-                const profile = UserStorage.getProfile();
-                if (!profile) return;
-                
-                const currentWeight = parseFloat(profile.weight);
-                const targetWeight = parseFloat(profile.targetWeight);
-                const startWeight = parseFloat(profile.startWeight) || currentWeight;
-                
-                if (currentWeight && targetWeight) {
-                    const progress = Calculator.calculateWeightProgress(currentWeight, targetWeight, startWeight);
-                    const weightLeft = Math.max(0, currentWeight - targetWeight);
-                    
-                    document.getElementById('currentWeight').textContent = currentWeight.toFixed(1);
-                    document.getElementById('targetWeight').textContent = targetWeight.toFixed(1);
-                    document.getElementById('weightLeft').textContent = weightLeft.toFixed(1);
-                    document.getElementById('weightProgressBar').style.width = `${progress}%`;
-                }
-            },
-
-            loadTodayFoods() {
-                const todayEntries = UserStorage.getTodayFoodEntries();
-                const container = document.getElementById('todayFoods');
-                
-                if (todayEntries.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Nenhum alimento registrado hoje</p>';
-                    return;
-                }
-                
-                container.innerHTML = todayEntries.map((entry, index) => `
-                    <div class="food-entry">
-                        <div class="food-info">
-                            <div class="food-name">${entry.name}</div>
-                            <div class="food-details">
-                                <span><i class="fas fa-weight"></i> ${entry.quantity}g</span>
-                                <span><i class="fas fa-fire"></i> ${entry.calories} kcal</span>
-                                <span><i class="fas fa-clock"></i> ${this.getMealTimeText(entry.time)}</span>
-                            </div>
-                        </div>
-                        <div class="food-actions">
-                            <button onclick="removeFoodEntry(${index})" class="btn-danger btn-icon">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `).join('');
-            },
-
-            getMealTimeText(time) {
-                const times = {
-                    'breakfast': 'Café da Manhã',
-                    'lunch': 'Almoço',
-                    'snack': 'Lanche',
-                    'dinner': 'Jantar',
-                    'other': 'Outro'
-                };
-                return times[time] || time;
-            },
-
-            loadProfile() {
-                const profile = UserStorage.getProfile();
-                if (profile) {
-                    document.getElementById('userFirstName').value = profile.firstName || '';
-                    document.getElementById('userLastName').value = profile.lastName || '';
-                    document.getElementById('userAge').value = profile.age || '';
-                    document.getElementById('userGender').value = profile.gender || '';
-                    document.getElementById('userHeight').value = profile.height || '';
-                    document.getElementById('userWeight').value = profile.weight || '';
-                    document.getElementById('userGoal').value = profile.goal || 'weight_loss';
-                    document.getElementById('userActivity').value = profile.activity || 'sedentary';
-                    document.getElementById('targetWeightInput').value = profile.targetWeight || '';
-                    document.getElementById('weeklyGoal').value = profile.weeklyGoal || '0.5';
-                }
-                
-                this.updateDailyGoals();
-            },
-
-            updateDailyGoals() {
-                const profile = UserStorage.getProfile();
-                if (!profile) return;
-                
-                const bmr = Calculator.calculateBMR(
-                    profile.weight,
-                    profile.height,
-                    profile.age,
-                    profile.gender
-                );
-                const tdee = Calculator.calculateTDEE(bmr, profile.activity);
-                const calorieGoal = Calculator.calculateCalorieGoal(
-                    tdee,
-                    profile.goal,
-                    parseFloat(profile.weeklyGoal || 0.5)
-                );
-                
-                const bmi = Calculator.calculateBMI(profile.weight, profile.height);
-                const bmiCategory = Calculator.getBMICategory(bmi);
-                
-                document.getElementById('dailyGoals').innerHTML = `
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <div class="stat-value">${Math.round(calorieGoal)}</div>
-                            <div class="stat-label">Meta Calórica Diária</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">${bmi.toFixed(1)}</div>
-                            <div class="stat-label">IMC (${bmiCategory})</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">${Math.round(tdee)}</div>
-                            <div class="stat-label">Gasto Calórico Diário</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-value">${parseFloat(profile.weeklyGoal)}</div>
-                            <div class="stat-label">Meta Semanal (kg)</div>
-                        </div>
-                    </div>
-                `;
-            },
-
-            loadFoodHistory() {
-                this.updateFoodHistory();
-                this.updateFrequentFoods();
-            },
-
-            updateFoodHistory(filter = 'all') {
-                let entries = UserStorage.getFoodEntries();
-                
-                const now = new Date();
-                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                
-                if (filter === 'today') {
-                    entries = entries.filter(entry => 
-                        new Date(entry.date) >= today
-                    );
-                } else if (filter === 'week') {
-                    const weekAgo = new Date(today);
-                    weekAgo.setDate(weekAgo.getDate() - 7);
-                    entries = entries.filter(entry => 
-                        new Date(entry.date) >= weekAgo
-                    );
-                } else if (filter === 'month') {
-                    const monthAgo = new Date(today);
-                    monthAgo.setMonth(monthAgo.getMonth() - 1);
-                    entries = entries.filter(entry => 
-                        new Date(entry.date) >= monthAgo
-                    );
-                }
-                
-                const container = document.getElementById('foodHistory');
-                
-                if (entries.length === 0) {
-                    container.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Nenhum alimento registrado</p>';
-                    return;
-                }
-                
-                // Agrupar por data
-                const grouped = {};
-                entries.forEach(entry => {
-                    const date = new Date(entry.date).toLocaleDateString('pt-BR');
-                    if (!grouped[date]) grouped[date] = [];
-                    grouped[date].push(entry);
-                });
-                
-                container.innerHTML = Object.entries(grouped).map(([date, foods]) => `
-                    <div style="margin-bottom: 25px;">
-                        <h3 style="color: var(--primary); margin-bottom: 10px; padding-bottom: 5px; border-bottom: 2px solid #eee;">
-                            ${date}
-                            <small style="font-size: 14px; color: #666; font-weight: normal;">
-                                (${foods.length} alimentos, ${foods.reduce((sum, f) => sum + parseFloat(f.calories), 0)} kcal)
-                            </small>
-                        </h3>
-                        ${foods.map(entry => `
-                            <div class="food-entry" style="margin-bottom: 8px;">
-                                <div class="food-info">
-                                    <div class="food-name">${entry.name}</div>
-                                    <div class="food-details">
-                                        <span>${entry.quantity}g</span>
-                                        <span>${entry.calories} kcal</span>
-                                        <span>${this.getMealTimeText(entry.time)}</span>
-                                        <span>${new Date(entry.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `).join('');
-            },
-
-            updateFrequentFoods() {
-                const entries = UserStorage.getFoodEntries();
-                if (entries.length === 0) {
-                    document.getElementById('frequentFoods').innerHTML = 
-                        '<p style="text-align: center; color: #666; padding: 20px;">Adicione alimentos para ver seus favoritos</p>';
-                    return;
-                }
-                
-                // Contar frequência de alimentos
-                const frequency = {};
-                entries.forEach(entry => {
-                    if (!frequency[entry.name]) {
-                        frequency[entry.name] = { count: 0, totalCalories: 0 };
-                    }
-                    frequency[entry.name].count++;
-                    frequency[entry.name].totalCalories += parseFloat(entry.calories);
-                });
-                
-                // Ordenar por frequência
-                const sorted = Object.entries(frequency)
-                    .sort((a, b) => b[1].count - a[1].count)
-                    .slice(0, 10);
-                
-                document.getElementById('frequentFoods').innerHTML = `
-                    <table class="food-table">
-                        <thead>
-                            <tr>
-                                <th>Alimento</th>
-                                <th>Vezes</th>
-                                <th>Média Calorias</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${sorted.map(([name, data]) => `
-                                <tr>
-                                    <td>${name}</td>
-                                    <td>${data.count}</td>
-                                    <td>${Math.round(data.totalCalories / data.count)} kcal</td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                `;
-            },
-
-            loadReports() {
-                // Limpar resultado anterior
-                document.getElementById('reportResult').innerHTML = '';
             },
 
             async sendChatMessage() {
@@ -1741,7 +1103,7 @@
                 this.showTypingIndicator();
 
                 try {
-                    const response = await this.generateAIResponse(message);
+                    const response = await HealthAssistant.callGeminiAPI(message);
                     this.removeTypingIndicator();
                     this.addChatMessage(response, 'ai');
                 } catch (error) {
@@ -1750,78 +1112,13 @@
                 }
             },
 
-            generateAIResponse(prompt) {
-                const lowerPrompt = prompt.toLowerCase();
-                const todayEntries = UserStorage.getTodayFoodEntries();
-                const totalCalories = todayEntries.reduce((sum, entry) => sum + (parseFloat(entry.calories) || 0), 0);
-                const profile = UserStorage.getProfile();
-                
-                let response = '';
-                
-                if (lowerPrompt.includes('calorias') || lowerPrompt.includes('caloria')) {
-                    if (profile) {
-                        const bmr = Calculator.calculateBMR(profile.weight, profile.height, profile.age, profile.gender);
-                        const tdee = Calculator.calculateTDEE(bmr, profile.activity);
-                        const calorieGoal = Calculator.calculateCalorieGoal(tdee, profile.goal, parseFloat(profile.weeklyGoal || 0.5));
-                        
-                        response = `Com base no seu perfil:
-• Peso: ${profile.weight} kg
-• Altura: ${profile.height} cm
-• Idade: ${profile.age} anos
-• Objetivo: ${profile.goal === 'weight_loss' ? 'Perda de peso' : 'Manutenção'}
-
-Sua necessidade calórica diária é de aproximadamente ${Math.round(tdee)} kcal.
-Para ${profile.goal === 'weight_loss' ? 'perder' : 'manter'}, recomendo ${calorieGoal} kcal/dia.
-
-Hoje você consumiu ${totalCalories} kcal.`;
-                        
-                        if (totalCalories > calorieGoal) {
-                            response += `\n\n⚠️ Você consumiu ${totalCalories - calorieGoal} kcal acima da sua meta.`;
-                        } else if (totalCalories < calorieGoal * 0.8) {
-                            response += `\n\n⚠️ Você consumiu muito abaixo da sua meta. Tente aumentar a ingestão.`;
-                        }
-                    } else {
-                        response = 'Para calcular suas calorias, configure seu perfil primeiro na aba "Meu Perfil".';
-                    }
-                } else if (lowerPrompt.includes('dieta') || lowerPrompt.includes('alimentação')) {
-                    response = `💡 Dicas para uma alimentação saudável:
-1. Beba pelo menos 2L de água por dia
-2. Consuma proteínas em todas as refeições
-3. Prefira carboidratos complexos (arroz integral, batata doce)
-4. Inclua gorduras boas (abacate, castanhas, azeite)
-5. Coma pelo menos 3 porções de vegetais por dia
-6. Evite alimentos ultraprocessados
-7. Faça de 5-6 refeições ao dia em menores quantidades`;
-                } else if (lowerPrompt.includes('perder peso') || lowerPrompt.includes('emagrecer')) {
-                    response = `🎯 Para perder peso de forma saudável:
-• Deficit calórico: Consuma menos calorias do que gasta
-• Proteínas: Mantenha alta ingestão para preservar músculo
-• Exercícios: Combine cardio e musculação
-• Sono: Durma 7-9 horas por noite
-• Paciência: Perda saudável é 0.5-1kg por semana
-
-Calcule suas calorias na aba "Meu Perfil" e monitore na aba "Meu Dia".`;
-                } else {
-                    response = `Como seu assistente de nutrição, posso ajudar com:
-• Cálculo de necessidades calóricas
-• Planejamento de dieta
-• Dicas para perda/ganho de peso
-• Análise de hábitos alimentares
-• Respostas sobre nutrição
-
-Me pergunte sobre calorias, dieta, ou configure seu perfil para conselhos personalizados.`;
-                }
-                
-                return response;
-            },
-
             addChatMessage(message, sender) {
                 const messagesContainer = document.getElementById('chatMessages');
                 const messageElement = document.createElement('div');
                 messageElement.className = `message ${sender}-message`;
                 
                 if (sender === 'ai') {
-                    messageElement.innerHTML = `<strong>Nutri Assistente:</strong> ${message.replace(/\n/g, '<br>')}`;
+                    messageElement.innerHTML = `<strong>Assistente IA:</strong> ${message.replace(/\n/g, '<br>')}`;
                 } else {
                     messageElement.innerHTML = `<strong>Você:</strong> ${message}`;
                 }
@@ -1836,7 +1133,7 @@ Me pergunte sobre calorias, dieta, ou configure seu perfil para conselhos person
                 typingElement.className = 'ai-thinking';
                 typingElement.id = 'typingIndicator';
                 typingElement.innerHTML = `
-                    <strong>Nutri Assistente:</strong>
+                    <strong>Assistente IA:</strong>
                     <div class="typing-dots">
                         <span></span>
                         <span></span>
@@ -1852,562 +1149,548 @@ Me pergunte sobre calorias, dieta, ou configure seu perfil para conselhos person
                 if (typingIndicator) {
                     typingIndicator.remove();
                 }
+            },
+
+            loadPrescriptions() {
+                const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${this.currentUser?.id}`) || '[]');
+                const container = document.getElementById('savedPrescriptions') || document.getElementById('prescriptionList');
+
+                if (prescriptions.length === 0) {
+                    container.innerHTML = '<p>Nenhuma receita salva ainda.</p>';
+                    return;
+                }
+
+                container.innerHTML = prescriptions.map(prescription => `
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-header">
+                            <div class="card-title">Receita para ${prescription.patientName}</div>
+                            <small>${new Date(prescription.date).toLocaleDateString('pt-BR')}</small>
+                        </div>
+                        <p><strong>Condição:</strong> ${prescription.condition}</p>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button onclick="viewPrescription('${prescription.id}')" class="btn-outline btn-small">
+                                <i class="fas fa-eye"></i> Ver
+                            </button>
+                            <button onclick="exportToPDF('${prescription.id}')" class="btn-small" style="background: var(--accent);">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                            <button onclick="exportToPNG('${prescription.id}')" class="btn-small" style="background: var(--info);">
+                                <i class="fas fa-image"></i> PNG
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            loadDiets() {
+                const diets = JSON.parse(localStorage.getItem(`diets_${this.currentUser?.id}`) || '[]');
+                const container = document.getElementById('savedDiets');
+
+                if (diets.length === 0) {
+                    container.innerHTML = '<p>Nenhuma dieta salva ainda.</p>';
+                    return;
+                }
+
+                container.innerHTML = diets.map(diet => `
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="card-header">
+                            <div class="card-title">Dieta para ${diet.patientName}</div>
+                            <small>${new Date(diet.date).toLocaleDateString('pt-BR')}</small>
+                        </div>
+                        <p><strong>Objetivo:</strong> ${this.getGoalText(diet.goal)}</p>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button onclick="viewDiet('${diet.id}')" class="btn-outline btn-small">
+                                <i class="fas fa-eye"></i> Ver
+                            </button>
+                            <button onclick="exportDietToPDF('${diet.id}')" class="btn-small" style="background: var(--accent);">
+                                <i class="fas fa-file-pdf"></i> PDF
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            },
+
+            getGoalText(goal) {
+                const goals = {
+                    'weight_loss': 'Perda de Peso',
+                    'weight_gain': 'Ganho de Peso',
+                    'maintenance': 'Manutenção',
+                    'muscle_gain': 'Ganho de Massa Muscular',
+                    'health_improvement': 'Melhora da Saúde'
+                };
+                return goals[goal] || goal;
+            },
+
+            showMessage(message, type = 'success') {
+                alert(message); // Poderia ser substituído por um toast mais bonito
             }
         };
 
-        // Funções Globais
-        function saveProfile() {
-            const profile = {
-                firstName: document.getElementById('userFirstName').value.trim(),
-                lastName: document.getElementById('userLastName').value.trim(),
-                age: parseInt(document.getElementById('userAge').value) || null,
-                gender: document.getElementById('userGender').value,
-                height: parseFloat(document.getElementById('userHeight').value) || null,
-                weight: parseFloat(document.getElementById('userWeight').value) || null,
-                goal: document.getElementById('userGoal').value,
-                activity: document.getElementById('userActivity').value,
-                targetWeight: parseFloat(document.getElementById('targetWeightInput').value) || null,
-                weeklyGoal: document.getElementById('weeklyGoal').value,
-                startWeight: parseFloat(document.getElementById('userWeight').value) || null,
-                updatedAt: new Date().toISOString()
-            };
+        // Funções de Receita
+        function openPrescriptionModal() {
+            document.getElementById('prescriptionModal').classList.add('active');
+        }
 
-            // Salvar registro de peso
-            if (profile.weight) {
-                UserStorage.saveWeightRecord({
-                    weight: profile.weight,
-                    date: new Date().toISOString()
+        function closePrescriptionModal() {
+            document.getElementById('prescriptionModal').classList.remove('active');
+        }
+
+        async function generatePrescription() {
+            const patientName = document.getElementById('patientName').value || 'Paciente';
+            const patientAge = document.getElementById('patientAge').value || 'Não informada';
+            const condition = document.getElementById('patientCondition').value || 'Consulta de rotina';
+            const medications = document.getElementById('medications').value || 'Medicação conforme avaliação';
+            const instructions = document.getElementById('prescriptionInstructions').value || 'Seguir orientações médicas';
+
+            if (!patientName) {
+                alert('Por favor, informe o nome do paciente!');
+                return;
+            }
+
+            const button = document.querySelector('#prescriptionResult').previousElementSibling;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando Receita...';
+            button.disabled = true;
+
+            try {
+                const prescriptionText = await HealthAssistant.generatePrescription({
+                    name: patientName,
+                    age: patientAge,
+                    condition: condition,
+                    medications: medications,
+                    instructions: instructions
                 });
-            }
 
-            UserStorage.saveProfile(profile);
-            App.updateDailyGoals();
-            App.updateWeightProgress();
-            
-            App.showToast('Perfil salvo com sucesso!');
-            App.switchTab('dashboard');
+                const today = new Date().toLocaleDateString('pt-BR');
+                const prescriptionNumber = 'RX-' + new Date().getFullYear() + '-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+                const prescriptionHTML = `
+                    <div class="prescription-container" id="prescriptionContent">
+                        <div class="prescription-watermark">SAÚDE AQUI</div>
+                        
+                        <div class="prescription-header">
+                            <div class="prescription-title">RECEITA MÉDICA</div>
+                            <p>${today} • Nº ${prescriptionNumber}</p>
+                        </div>
+                        
+                        <div class="prescription-patient">
+                            <p><strong>Paciente:</strong> ${patientName}</p>
+                            <p><strong>Idade:</strong> ${patientAge} anos</p>
+                            <p><strong>Condição:</strong> ${condition}</p>
+                        </div>
+                        
+                        <div class="prescription-medications">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">PRESCRIÇÃO MÉDICA</h3>
+                            <div style="white-space: pre-line;">${prescriptionText}</div>
+                        </div>
+                        
+                        <div class="prescription-footer">
+                            <div class="doctor-signature">
+                                <div class="signature-line"></div>
+                                <p><strong>Dr. Assistente IA</strong></p>
+                                <p>CRM: IA-${Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="export-buttons">
+                        <button onclick="savePrescription()" class="btn-success">
+                            <i class="fas fa-save"></i> Salvar Receita
+                        </button>
+                        <button onclick="exportToPDF()" class="btn-outline">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                        <button onclick="exportToPNG()" class="btn-outline">
+                            <i class="fas fa-image"></i> Exportar PNG
+                        </button>
+                        <button onclick="printPrescription()" class="btn-outline">
+                            <i class="fas fa-print"></i> Imprimir
+                        </button>
+                    </div>
+                `;
+
+                document.getElementById('prescriptionResult').innerHTML = prescriptionHTML;
+
+                // Salvar dados temporários
+                window.currentPrescriptionData = {
+                    patientName,
+                    patientAge,
+                    condition,
+                    medications,
+                    instructions,
+                    prescriptionText,
+                    date: new Date().toISOString(),
+                    prescriptionNumber
+                };
+
+            } catch (error) {
+                document.getElementById('prescriptionResult').innerHTML = '<p style="color: red;">Erro ao gerar receita. Tente novamente.</p>';
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
         }
 
-        function addFoodEntry() {
-            const name = document.getElementById('foodName').value.trim();
-            const quantity = document.getElementById('foodQuantity').value;
-            const calories = document.getElementById('foodCalories').value;
-            const time = document.getElementById('foodTime').value;
+        // Funções de Dieta
+        function openDietModal() {
+            document.getElementById('dietModal').classList.add('active');
+        }
 
-            if (!name || !quantity || !calories) {
-                App.showToast('Preencha todos os campos do alimento!', 'error');
+        function closeDietModal() {
+            document.getElementById('dietModal').classList.remove('active');
+        }
+
+        async function generateDietPlan() {
+            const patientName = document.getElementById('dietPatientName').value || 'Paciente';
+            const patientAge = document.getElementById('dietPatientAge').value || 'Não informada';
+            const weight = document.getElementById('patientWeight').value || 'Não informado';
+            const height = document.getElementById('patientHeight').value || 'Não informada';
+            const goal = document.getElementById('healthGoals').value;
+            const restrictions = document.getElementById('foodRestrictions').value || 'Nenhuma';
+            const habits = document.getElementById('typicalMeals').value || 'Não informado';
+
+            if (!patientName) {
+                alert('Por favor, informe o nome do paciente!');
                 return;
             }
 
-            const foodEntry = {
-                id: Date.now().toString(),
-                name: name,
-                quantity: parseFloat(quantity),
-                calories: parseFloat(calories),
-                time: time,
-                date: new Date().toISOString()
-            };
+            const button = document.querySelector('#dietResult').previousElementSibling;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gerando Dieta...';
+            button.disabled = true;
 
-            UserStorage.saveFoodEntry(foodEntry);
-            
-            // Limpar formulário
-            document.getElementById('foodName').value = '';
-            document.getElementById('foodQuantity').value = '';
-            document.getElementById('foodCalories').value = '';
-            
-            // Atualizar interface
-            App.loadDashboard();
-            App.updateFoodHistory(document.getElementById('foodHistoryFilter').value);
-            App.updateFrequentFoods();
-            
-            App.showToast(`Alimento "${name}" adicionado!`, 'success');
-        }
+            try {
+                const dietText = await HealthAssistant.generateDietPlan({
+                    name: patientName,
+                    age: patientAge,
+                    weight: weight,
+                    height: height,
+                    goal: goal,
+                    restrictions: restrictions,
+                    habits: habits
+                });
 
-        function removeFoodEntry(index) {
-            if (!confirm('Remover este alimento?')) return;
-            
-            const entries = UserStorage.getFoodEntries();
-            const today = new Date().toDateString();
-            const todayEntries = entries.filter(entry => 
-                new Date(entry.date).toDateString() === today
-            );
-            
-            if (index >= 0 && index < todayEntries.length) {
-                const removed = todayEntries[index];
-                // Remover do armazenamento
-                const allEntries = entries.filter(entry => 
-                    !(new Date(entry.date).toDateString() === today && 
-                      entry.id === removed.id)
-                );
-                
-                // Atualizar usuário
-                const user = UserStorage.getCurrentUser();
-                user.foodEntries = allEntries;
-                UserStorage.updateUser(user);
-                
-                // Atualizar interface
-                App.loadDashboard();
-                App.updateFoodHistory(document.getElementById('foodHistoryFilter').value);
-                App.updateFrequentFoods();
-                
-                App.showToast('Alimento removido!', 'success');
+                const today = new Date().toLocaleDateString('pt-BR');
+
+                const dietHTML = `
+                    <div class="diet-plan" id="dietContent">
+                        <div class="prescription-header">
+                            <div class="prescription-title">PLANO ALIMENTAR</div>
+                            <p>${today}</p>
+                        </div>
+                        
+                        <div class="prescription-patient">
+                            <p><strong>Paciente:</strong> ${patientName}</p>
+                            <p><strong>Idade:</strong> ${patientAge} anos</p>
+                            <p><strong>Peso:</strong> ${weight} kg • <strong>Altura:</strong> ${height} cm</p>
+                            <p><strong>Objetivo:</strong> ${App.getGoalText(goal)}</p>
+                            <p><strong>Restrições:</strong> ${restrictions}</p>
+                        </div>
+                        
+                        <div style="white-space: pre-line; margin: 20px 0;">${dietText}</div>
+                        
+                        <div class="prescription-footer">
+                            <div class="doctor-signature">
+                                <div class="signature-line"></div>
+                                <p><strong>Nutricionista Assistente IA</strong></p>
+                                <p>CRN: IA-${Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="export-buttons">
+                        <button onclick="saveDiet()" class="btn-info">
+                            <i class="fas fa-save"></i> Salvar Dieta
+                        </button>
+                        <button onclick="exportDietToPDF()" class="btn-outline">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                        <button onclick="printDiet()" class="btn-outline">
+                            <i class="fas fa-print"></i> Imprimir
+                        </button>
+                    </div>
+                `;
+
+                document.getElementById('dietResult').innerHTML = dietHTML;
+
+                // Salvar dados temporários
+                window.currentDietData = {
+                    patientName,
+                    patientAge,
+                    weight,
+                    height,
+                    goal,
+                    restrictions,
+                    habits,
+                    dietText,
+                    date: new Date().toISOString()
+                };
+
+            } catch (error) {
+                document.getElementById('dietResult').innerHTML = '<p style="color: red;">Erro ao gerar dieta. Tente novamente.</p>';
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
             }
         }
 
-        function filterFoodHistory() {
-            const filter = document.getElementById('foodHistoryFilter').value;
-            App.updateFoodHistory(filter);
-        }
-
-        function clearFoodHistory() {
-            if (!confirm('Tem certeza que deseja limpar todo o histórico de alimentos?')) return;
-            
-            UserStorage.clearUserData();
-            App.loadDashboard();
-            App.updateFoodHistory('all');
-            App.updateFrequentFoods();
-            
-            App.showToast('Histórico limpo com sucesso!', 'success');
-        }
-
-        function updateWeightGoal() {
-            App.switchTab('profile');
-        }
-
-        function generateDailyReport() {
-            const todayEntries = UserStorage.getTodayFoodEntries();
-            const totalCalories = todayEntries.reduce((sum, entry) => sum + (parseFloat(entry.calories) || 0), 0);
-            const profile = UserStorage.getProfile();
-            const today = new Date().toLocaleDateString('pt-BR');
-            
-            let calorieGoal = 2000;
-            let bmi = null;
-            let bmiCategory = '';
-            
-            if (profile) {
-                const bmr = Calculator.calculateBMR(profile.weight, profile.height, profile.age, profile.gender);
-                const tdee = Calculator.calculateTDEE(bmr, profile.activity);
-                calorieGoal = Calculator.calculateCalorieGoal(tdee, profile.goal, parseFloat(profile.weeklyGoal || 0.5));
-                bmi = Calculator.calculateBMI(profile.weight, profile.height);
-                bmiCategory = Calculator.getBMICategory(bmi);
-            }
-            
-            const progress = Math.min(100, (totalCalories / calorieGoal) * 100);
-            
-            const reportHTML = `
-                <div class="report-container" id="reportContent">
-                    <div class="report-watermark">SAÚDE AQUI</div>
-                    
-                    <div class="report-header">
-                        <div class="report-title">RELATÓRIO DIÁRIO</div>
-                        <div class="report-date">${today}</div>
-                    </div>
-                    
-                    <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">📊 Resumo do Dia</h3>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">${todayEntries.length}</div>
-                                <div class="stat-label">Alimentos Registrados</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${totalCalories}</div>
-                                <div class="stat-label">Total de Calorias</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${calorieGoal}</div>
-                                <div class="stat-label">Meta Calórica</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${Math.round(progress)}%</div>
-                                <div class="stat-label">Progresso</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    ${profile ? `
-                    <div style="margin: 20px 0; padding: 20px; background: white; border-radius: 8px; border: 1px solid #eee;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">👤 Dados do Usuário</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                            <div><strong>Nome:</strong> ${profile.firstName} ${profile.lastName}</div>
-                            <div><strong>Idade:</strong> ${profile.age} anos</div>
-                            <div><strong>Peso:</strong> ${profile.weight} kg</div>
-                            <div><strong>Altura:</strong> ${profile.height} cm</div>
-                            <div><strong>IMC:</strong> ${bmi ? bmi.toFixed(1) : '--'} (${bmiCategory})</div>
-                            <div><strong>Meta:</strong> ${profile.goal === 'weight_loss' ? 'Perda de peso' : 'Manutenção'}</div>
-                        </div>
-                    </div>
-                    ` : ''}
-                    
-                    <div style="margin: 20px 0;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">🍽️ Alimentos Consumidos</h3>
-                        ${todayEntries.length > 0 ? `
-                            <table class="food-table">
-                                <thead>
-                                    <tr>
-                                        <th>Alimento</th>
-                                        <th>Quantidade</th>
-                                        <th>Calorias</th>
-                                        <th>Refeição</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    ${todayEntries.map(entry => `
-                                        <tr>
-                                            <td>${entry.name}</td>
-                                            <td>${entry.quantity}g</td>
-                                            <td>${entry.calories} kcal</td>
-                                            <td>${App.getMealTimeText(entry.time)}</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                                <tfoot style="background: #f8f9fa; font-weight: bold;">
-                                    <tr>
-                                        <td colspan="2">TOTAL</td>
-                                        <td>${totalCalories} kcal</td>
-                                        <td></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        ` : '<p style="text-align: center; color: #666; padding: 20px;">Nenhum alimento registrado hoje</p>'}
-                    </div>
-                    
-                    <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">💡 Recomendações</h3>
-                        <p>
-                            ${totalCalories > calorieGoal ? 
-                                `⚠️ Você consumiu ${totalCalories - calorieGoal} kcal acima da sua meta. Considere reduzir as porções ou escolher alimentos menos calóricos.` : 
-                                totalCalories < calorieGoal * 0.8 ?
-                                `⚠️ Você consumiu muito abaixo da sua meta. Certifique-se de estar consumindo nutrientes suficientes.` :
-                                `✅ Excelente! Você está dentro da sua meta calórica. Continue assim!`
-                            }
-                        </p>
-                        <p><strong>Dica do dia:</strong> Beba pelo menos 8 copos de água e inclua vegetais em todas as refeições principais.</p>
-                    </div>
-                    
-                    <div class="prescription-footer" style="margin-top: 30px;">
-                        <div class="doctor-signature">
-                            <div class="signature-line"></div>
-                            <p><strong>Sistema SaúdeAqui</strong></p>
-                            <p>Relatório gerado automaticamente</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('reportContent').innerHTML = reportHTML;
-            document.getElementById('reportModal').classList.add('active');
-            
-            // Salvar dados para exportação
-            window.currentReportData = {
-                type: 'daily',
-                date: today,
-                entries: todayEntries,
-                totalCalories: totalCalories,
-                calorieGoal: calorieGoal,
-                progress: progress,
-                profile: profile
-            };
-        }
-
-        function generateWeeklyReport() {
-            const entries = UserStorage.getFoodEntries();
-            const now = new Date();
-            const weekAgo = new Date(now);
-            weekAgo.setDate(weekAgo.getDate() - 7);
-            
-            const weekEntries = entries.filter(entry => 
-                new Date(entry.date) >= weekAgo
-            );
-            
-            // Agrupar por dia
-            const dailyStats = {};
-            for (let i = 6; i >= 0; i--) {
-                const date = new Date(now);
-                date.setDate(date.getDate() - i);
-                const dateStr = date.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' });
-                dailyStats[dateStr] = { calories: 0, count: 0 };
-            }
-            
-            weekEntries.forEach(entry => {
-                const date = new Date(entry.date);
-                const dateStr = date.toLocaleDateString('pt-BR', { weekday: 'short', day: '2-digit', month: '2-digit' });
-                if (dailyStats[dateStr]) {
-                    dailyStats[dateStr].calories += parseFloat(entry.calories);
-                    dailyStats[dateStr].count++;
-                }
-            });
-            
-            const totalWeekCalories = Object.values(dailyStats).reduce((sum, day) => sum + day.calories, 0);
-            const avgDailyCalories = Math.round(totalWeekCalories / 7);
-            
-            const reportHTML = `
-                <div class="report-container" id="reportContent">
-                    <div class="report-watermark">SAÚDE AQUI</div>
-                    
-                    <div class="report-header">
-                        <div class="report-title">RELATÓRIO SEMANAL</div>
-                        <div class="report-date">${new Date(weekAgo).toLocaleDateString('pt-BR')} a ${new Date().toLocaleDateString('pt-BR')}</div>
-                    </div>
-                    
-                    <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">📈 Estatísticas da Semana</h3>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">${weekEntries.length}</div>
-                                <div class="stat-label">Alimentos</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${totalWeekCalories}</div>
-                                <div class="stat-label">Total Calorias</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${avgDailyCalories}</div>
-                                <div class="stat-label">Média Diária</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${Math.round(totalWeekCalories / 7 / 2000 * 100)}%</div>
-                                <div class="stat-label">Meta Semanal</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 20px 0;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">📊 Consumo Diário</h3>
-                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee;">
-                            ${Object.entries(dailyStats).map(([date, stats]) => `
-                                <div style="margin-bottom: 15px;">
-                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                        <strong>${date}</strong>
-                                        <span>${stats.calories} kcal (${stats.count} alimentos)</span>
-                                    </div>
-                                    <div class="progress-bar" style="height: 10px;">
-                                        <div class="progress-fill" style="width: ${Math.min(100, (stats.calories / 2500) * 100)}%"></div>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">📝 Análise Semanal</h3>
-                        <p>
-                            ${totalWeekCalories / 7 > 2500 ? 
-                                '⚠️ Sua média diária está acima do recomendado. Considere ajustar suas porções.' :
-                                totalWeekCalories / 7 < 1500 ?
-                                '⚠️ Sua média diária está muito baixa. Certifique-se de consumir nutrientes suficientes.' :
-                                '✅ Sua média calórica semanal está dentro da faixa recomendada.'
-                            }
-                        </p>
-                        <p><strong>Recomendação:</strong> Mantenha um diário alimentar consistente e ajuste conforme necessário para atingir seus objetivos.</p>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('reportContent').innerHTML = reportHTML;
-            document.getElementById('reportModal').classList.add('active');
-            
-            window.currentReportData = {
-                type: 'weekly',
-                dailyStats: dailyStats,
-                totalWeekCalories: totalWeekCalories,
-                avgDailyCalories: avgDailyCalories
-            };
-        }
-
-        function generateWeightProgressReport() {
-            const profile = UserStorage.getProfile();
-            const weightRecords = UserStorage.getWeightRecords();
-            
-            if (!profile || weightRecords.length < 2) {
-                alert('Configure seu perfil e registre seu peso várias vezes para gerar um relatório de progresso.');
-                return;
-            }
-            
-            // Ordenar registros por data
-            weightRecords.sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            const firstRecord = weightRecords[0];
-            const lastRecord = weightRecords[weightRecords.length - 1];
-            const totalChange = lastRecord.weight - firstRecord.weight;
-            const weeklyChange = totalChange / (weightRecords.length / 7);
-            
-            const reportHTML = `
-                <div class="report-container" id="reportContent">
-                    <div class="report-watermark">SAÚDE AQUI</div>
-                    
-                    <div class="report-header">
-                        <div class="report-title">RELATÓRIO DE PROGRESSO DE PESO</div>
-                        <div class="report-date">${new Date(firstRecord.date).toLocaleDateString('pt-BR')} a ${new Date(lastRecord.date).toLocaleDateString('pt-BR')}</div>
-                    </div>
-                    
-                    <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">⚖️ Resumo do Progresso</h3>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <div class="stat-value">${firstRecord.weight.toFixed(1)}</div>
-                                <div class="stat-label">Peso Inicial (kg)</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${lastRecord.weight.toFixed(1)}</div>
-                                <div class="stat-label">Peso Atual (kg)</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${totalChange > 0 ? '+' : ''}${totalChange.toFixed(1)}</div>
-                                <div class="stat-label">Variação Total (kg)</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${weeklyChange > 0 ? '+' : ''}${weeklyChange.toFixed(2)}</div>
-                                <div class="stat-label">Variação Semanal (kg)</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 20px 0;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">📈 Evolução do Peso</h3>
-                        <div style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #eee; height: 300px; position: relative;">
-                            <!-- Gráfico simples em texto -->
-                            ${weightRecords.map((record, index) => {
-                                const date = new Date(record.date).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-                                const height = 250 - ((record.weight - Math.min(...weightRecords.map(r => r.weight))) / 
-                                    (Math.max(...weightRecords.map(r => r.weight)) - Math.min(...weightRecords.map(r => r.weight)))) * 200;
-                                return `
-                                    <div style="position: absolute; bottom: 20px; left: ${(index / (weightRecords.length - 1)) * 90 + 5}%; width: 30px;">
-                                        <div style="height: ${height}px; width: 20px; background: ${totalChange < 0 ? 'var(--success)' : 'var(--danger)'}; border-radius: 3px; margin: 0 auto;"></div>
-                                        <div style="text-align: center; font-size: 12px; margin-top: 5px;">${date}</div>
-                                        <div style="text-align: center; font-size: 11px; color: #666;">${record.weight.toFixed(1)}</div>
-                                    </div>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                    
-                    <div style="margin: 20px 0; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">🎯 Análise e Recomendações</h3>
-                        <p>
-                            ${totalChange < 0 ? 
-                                `✅ Excelente progresso! Você perdeu ${Math.abs(totalChange).toFixed(1)} kg. Continue com sua rotina atual.` :
-                                totalChange > 0 ?
-                                `⚠️ Seu peso aumentou ${totalChange.toFixed(1)} kg. Considere ajustar sua ingestão calórica ou aumentar a atividade física.` :
-                                `⚖️ Seu peso permaneceu estável. Se seu objetivo é perder peso, ajuste sua dieta ou exercícios.`
-                            }
-                        </p>
-                        <p><strong>Meta:</strong> Peso desejado: ${profile.targetWeight || '--'} kg | Faltam: ${Math.max(0, lastRecord.weight - (profile.targetWeight || lastRecord.weight)).toFixed(1)} kg</p>
-                        <p><strong>Próximos passos:</strong> ${totalChange < 0 ? 'Mantenha o déficit calórico e continue monitorando.' : 'Ajuste suas calorias em 200-300 kcal/dia para ver mudanças.'}</p>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('reportContent').innerHTML = reportHTML;
-            document.getElementById('reportModal').classList.add('active');
-            
-            window.currentReportData = {
-                type: 'weight',
-                weightRecords: weightRecords,
-                totalChange: totalChange,
-                weeklyChange: weeklyChange
-            };
-        }
-
-        function generateWeightReport() {
-            generateWeightProgressReport();
-        }
-
-        function closeReportModal() {
-            document.getElementById('reportModal').classList.remove('active');
-        }
-
-        async function exportToPDF() {
+        // Funções de Exportação
+        async function exportToPDF(prescriptionId = null) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            const contentElement = document.querySelector('#reportContent .report-container');
-            if (!contentElement) {
-                alert('Nenhum relatório para exportar!');
-                return;
-            }
-            
-            await html2canvas(contentElement).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const imgWidth = 210; // A4 width in mm
-                const pageHeight = 295; // A4 height in mm
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-                let heightLeft = imgHeight;
+            let contentElement;
+            if (prescriptionId) {
+                // Buscar receita salva
+                const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+                const prescription = prescriptions.find(p => p.id === prescriptionId);
+                if (prescription) {
+                    doc.text(`Receita Médica - ${prescription.patientName}`, 20, 20);
+                    doc.text(`Data: ${new Date(prescription.date).toLocaleDateString('pt-BR')}`, 20, 30);
+                    doc.text(`Paciente: ${prescription.patientName}`, 20, 40);
+                    doc.text(`Idade: ${prescription.patientAge} anos`, 20, 50);
+                    doc.text('Prescrição:', 20, 70);
+                    const splitText = doc.splitTextToSize(prescription.prescriptionText, 170);
+                    doc.text(splitText, 20, 80);
+                }
+            } else {
+                // Usar receita atual
+                contentElement = document.getElementById('prescriptionContent');
+                if (!contentElement) {
+                    alert('Nenhuma receita para exportar!');
+                    return;
+                }
+                
+                await html2canvas(contentElement).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 210; // A4 width in mm
+                    const pageHeight = 295; // A4 height in mm
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
 
-                let position = 0;
+                    let position = 0;
 
-                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-
-                while (heightLeft >= 0) {
-                    position = heightLeft - imgHeight;
-                    doc.addPage();
                     doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
-                }
-            });
 
-            doc.save(`relatorio-saudeaqui-${new Date().getTime()}.pdf`);
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                });
+            }
+
+            doc.save(`receita-${new Date().getTime()}.pdf`);
         }
 
-        async function exportToPNG() {
-            const contentElement = document.querySelector('#reportContent .report-container');
+        async function exportToPNG(prescriptionId = null) {
+            let contentElement;
+            
+            if (prescriptionId) {
+                // Para receitas salvas, recriar o conteúdo
+                const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+                const prescription = prescriptions.find(p => p.id === prescriptionId);
+                if (prescription) {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = `
+                        <div class="prescription-container" style="width: 800px;">
+                            <div class="prescription-header">
+                                <div class="prescription-title">RECEITA MÉDICA</div>
+                                <p>${new Date(prescription.date).toLocaleDateString('pt-BR')}</p>
+                            </div>
+                            <div class="prescription-patient">
+                                <p><strong>Paciente:</strong> ${prescription.patientName}</p>
+                                <p><strong>Idade:</strong> ${prescription.patientAge} anos</p>
+                            </div>
+                            <div class="prescription-medications">
+                                <div style="white-space: pre-line;">${prescription.prescriptionText}</div>
+                            </div>
+                        </div>
+                    `;
+                    document.body.appendChild(tempDiv);
+                    contentElement = tempDiv;
+                }
+            } else {
+                contentElement = document.getElementById('prescriptionContent');
+            }
+
             if (!contentElement) {
-                alert('Nenhum relatório para exportar!');
+                alert('Nenhuma receita para exportar!');
                 return;
             }
 
             await html2canvas(contentElement).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `relatorio-saudeaqui-${new Date().getTime()}.png`;
+                link.download = `receita-${new Date().getTime()}.png`;
                 link.href = canvas.toDataURL();
                 link.click();
+                
+                // Limpar elemento temporário se existir
+                if (prescriptionId) {
+                    contentElement.remove();
+                }
             });
         }
 
-        function printReport() {
-            const contentElement = document.querySelector('#reportContent .report-container');
+        async function exportDietToPDF(dietId = null) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            let contentElement;
+            if (dietId) {
+                // Buscar dieta salva
+                const diets = JSON.parse(localStorage.getItem(`diets_${App.currentUser?.id}`) || '[]');
+                const diet = diets.find(d => d.id === dietId);
+                if (diet) {
+                    doc.text(`Plano Alimentar - ${diet.patientName}`, 20, 20);
+                    doc.text(`Data: ${new Date(diet.date).toLocaleDateString('pt-BR')}`, 20, 30);
+                    doc.text(`Paciente: ${diet.patientName}`, 20, 40);
+                    doc.text(`Idade: ${diet.patientAge} anos`, 20, 50);
+                    doc.text('Plano Alimentar:', 20, 70);
+                    const splitText = doc.splitTextToSize(diet.dietText, 170);
+                    doc.text(splitText, 20, 80);
+                }
+            } else {
+                contentElement = document.getElementById('dietContent');
+                if (!contentElement) {
+                    alert('Nenhuma dieta para exportar!');
+                    return;
+                }
+                
+                await html2canvas(contentElement).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+
+                    let position = 0;
+
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+                });
+            }
+
+            doc.save(`dieta-${new Date().getTime()}.pdf`);
+        }
+
+        // Funções de Salvamento
+        function savePrescription() {
+            if (!window.currentPrescriptionData) {
+                alert('Nenhuma receita para salvar!');
+                return;
+            }
+
+            const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+            prescriptions.push({
+                ...window.currentPrescriptionData,
+                id: Date.now().toString()
+            });
+
+            localStorage.setItem(`prescriptions_${App.currentUser?.id}`, JSON.stringify(prescriptions));
+            alert('Receita salva com sucesso!');
+            closePrescriptionModal();
+            App.loadPrescriptions();
+        }
+
+        function saveDiet() {
+            if (!window.currentDietData) {
+                alert('Nenhuma dieta para salvar!');
+                return;
+            }
+
+            const diets = JSON.parse(localStorage.getItem(`diets_${App.currentUser?.id}`) || '[]');
+            diets.push({
+                ...window.currentDietData,
+                id: Date.now().toString()
+            });
+
+            localStorage.setItem(`diets_${App.currentUser?.id}`, JSON.stringify(diets));
+            alert('Dieta salva com sucesso!');
+            closeDietModal();
+            App.loadDiets();
+        }
+
+        // Funções de Visualização
+        function viewPrescription(prescriptionId) {
+            const prescriptions = JSON.parse(localStorage.getItem(`prescriptions_${App.currentUser?.id}`) || '[]');
+            const prescription = prescriptions.find(p => p.id === prescriptionId);
+
+            if (prescription) {
+                document.getElementById('patientName').value = prescription.patientName;
+                document.getElementById('patientAge').value = prescription.patientAge;
+                document.getElementById('patientCondition').value = prescription.condition;
+                document.getElementById('medications').value = prescription.medications;
+                document.getElementById('prescriptionInstructions').value = prescription.instructions;
+                
+                openPrescriptionModal();
+                // Gerar preview
+                setTimeout(() => generatePrescription(), 500);
+            }
+        }
+
+        function viewDiet(dietId) {
+            const diets = JSON.parse(localStorage.getItem(`diets_${App.currentUser?.id}`) || '[]');
+            const diet = diets.find(d => d.id === dietId);
+
+            if (diet) {
+                document.getElementById('dietPatientName').value = diet.patientName;
+                document.getElementById('dietPatientAge').value = diet.patientAge;
+                document.getElementById('patientWeight').value = diet.weight;
+                document.getElementById('patientHeight').value = diet.height;
+                document.getElementById('healthGoals').value = diet.goal;
+                document.getElementById('foodRestrictions').value = diet.restrictions;
+                document.getElementById('typicalMeals').value = diet.habits;
+                
+                openDietModal();
+                // Gerar preview
+                setTimeout(() => generateDietPlan(), 500);
+            }
+        }
+
+        function printPrescription() {
+            const contentElement = document.getElementById('prescriptionContent');
             if (contentElement) {
                 const printWindow = window.open('', '_blank');
                 printWindow.document.write(`
                     <html>
                         <head>
-                            <title>Relatório SaúdeAqui</title>
+                            <title>Receita Médica</title>
                             <style>
-                                body { 
-                                    font-family: Arial, sans-serif; 
-                                    margin: 20px;
-                                    color: #333;
-                                }
-                                .report-container {
-                                    max-width: 800px;
-                                    margin: 0 auto;
-                                    border: 1px solid #ddd;
-                                    padding: 30px;
-                                }
-                                .report-title {
-                                    text-align: center;
-                                    font-size: 24px;
-                                    font-weight: bold;
-                                    color: #2E7D32;
-                                    margin-bottom: 10px;
-                                }
-                                table {
-                                    width: 100%;
-                                    border-collapse: collapse;
-                                    margin: 15px 0;
-                                }
-                                th, td {
-                                    padding: 10px;
-                                    border: 1px solid #ddd;
-                                    text-align: left;
-                                }
-                                th {
-                                    background: #f5f5f5;
-                                }
-                                @media print {
-                                    body { margin: 0; }
-                                }
+                                body { font-family: Arial, sans-serif; margin: 20px; }
+                                ${document.querySelector('style').innerHTML}
+                            </style>
+                        </head>
+                        <body>
+                            ${contentElement.outerHTML}
+                        </body>
+                    </html>
+                `);
+                printWindow.document.close();
+                printWindow.print();
+            }
+        }
+
+        function printDiet() {
+            const contentElement = document.getElementById('dietContent');
+            if (contentElement) {
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html>
+                        <head>
+                            <title>Plano Alimentar</title>
+                            <style>
+                                body { font-family: Arial, sans-serif; margin: 20px; }
+                                ${document.querySelector('style').innerHTML}
                             </style>
                         </head>
                         <body>
@@ -2422,7 +1705,7 @@ Me pergunte sobre calorias, dieta, ou configure seu perfil para conselhos person
 
         // Inicializar a aplicação
         document.addEventListener('DOMContentLoaded', () => {
-            Auth.init();
+            App.init();
         });
 
         // Fechar modal ao clicar fora
